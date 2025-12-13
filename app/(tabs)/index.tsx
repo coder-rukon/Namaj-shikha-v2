@@ -1,98 +1,35 @@
+import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+const Home = () => {
+    return(
+        <ScrollView style={style.container}>
+            <ImageBackground
+                style={style.topBg}
+                resizeMode="cover"
+            >
+                <View style={style.topItems}>
+                    <RoundBox title="পরিচ্ছেদঃ ৯৪. হিসাব ও শাস্তি ছাড়াই মুসলিমদের একাধিক দল জান্নাতে প্রবেশ করার প্রমাণ। ">৪১০-(৩৬৯/...) হারমালাহ ইবনু ইয়াহইয়া (রহঃ) ..... আবূ হুরাইরাহ (রাযিঃ) থেকে বর্ণিত। তিনি বলেন, আমি রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম কে বলতে শুনেছি, আমার উম্মতের একটি দল জান্নাতে প্রবেশ করবে। তাদের সংখ্যা হবে সত্তর হাজার। তাদের চেহারা পূর্ণিমার চাদের ন্যায় চমকাতে থাকবে। আবূ হুরাইরাহ (রাযিঃ) বলেন, তখন উক্কাশাহ ইবনু মিহসান আসাদী দাঁড়ালেন। তার গায়ে একটি চাঁদর ছিল। বললেন, ইয়া রাসূলাল্লাহ! আপনি আল্লাহর কাছে দু’আ করুন তিনি যেন আমাকেও তাদের অন্তর্ভুক্ত করে নেন। রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম বললেনঃ ইয়া আল্লাহ! একে তাদের অন্তর্ভুক্ত করে নিন। এরপর আরেকজন আনসারী দাঁড়িয়ে বললেন, ইয়া রাসূলাল্লাহ। আপনি আল্লাহর কাছে দু’আ করুন তিনি যেন আমাকেও তাদের অন্তর্ভুক্ত করে নেন। রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম বললেনঃ এ সুযোগ লাভে উক্কাশাহ তোমার অগ্রগামী হয়ে গেছে। (ইসলামিক ফাউন্ডেশনঃ ৪১৫, ইসলামিক সেন্টারঃ ৪২৯)</RoundBox>
+                    <Image contentFit="cover" style={style.top_minar} source={require('@/assets/images/hometopbg.png')} />
+                </View>
+            </ImageBackground>
+        </ScrollView>
+    )
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+export default Home;
+const style = StyleSheet.create({
+    container:{},
+    top_minar:{
+        width:'100%',
+        height:200
+    },
+    topItems:{
+        flex:1,
+        flexDirection:'column'
+    },
+    topBg:{
+        backgroundColor:"#59D8B2",
+        paddingTop:20,
+        paddingBottom:0
+    }
 });
