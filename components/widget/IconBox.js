@@ -19,19 +19,22 @@ class IconBox extends Component {
 export default IconBox;
 const style =  StyleSheet.create({
     container:{
-        width:70,
-        maxWidth:70
+        width:80,
+        maxWidth:80,
+        justifyContent:'center'
     },
 
     icon:{
         backgroundColor:'#DFFAF3',
-        borderRadius:10,
+        borderRadius:20,
         padding:5,
-        minWidth:70,
-        minHeight:70,
+        width:70,
+        height:70,
         flex:1,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        marginLeft:'auto',
+        marginRight:'auto'
     },
     icon_symbol:{
         width:50,
