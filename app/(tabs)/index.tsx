@@ -1,7 +1,9 @@
+import IconBox from '@/components/widget/IconBox';
 import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 const Home = () => {
+    let items = [{},{},{},{},{},{},{},{},{},{},{}]
     return(
         <ScrollView style={style.container}>
             <ImageBackground
@@ -9,19 +11,36 @@ const Home = () => {
                 resizeMode="cover"
             >
                 <View style={style.topItems}>
-                    <RoundBox title="পরিচ্ছেদঃ ৯৪. হিসাব ও শাস্তি ছাড়াই মুসলিমদের একাধিক দল জান্নাতে প্রবেশ করার প্রমাণ। ">৪১০-(৩৬৯/...) হারমালাহ ইবনু ইয়াহইয়া (রহঃ) ..... আবূ হুরাইরাহ (রাযিঃ) থেকে বর্ণিত। তিনি বলেন, আমি রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম কে বলতে শুনেছি, আমার উম্মতের একটি দল জান্নাতে প্রবেশ করবে। তাদের সংখ্যা হবে সত্তর হাজার। তাদের চেহারা পূর্ণিমার চাদের ন্যায় চমকাতে থাকবে। আবূ হুরাইরাহ (রাযিঃ) বলেন, তখন উক্কাশাহ ইবনু মিহসান আসাদী দাঁড়ালেন। তার গায়ে একটি চাঁদর ছিল। বললেন, ইয়া রাসূলাল্লাহ! আপনি আল্লাহর কাছে দু’আ করুন তিনি যেন আমাকেও তাদের অন্তর্ভুক্ত করে নেন। রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম বললেনঃ ইয়া আল্লাহ! একে তাদের অন্তর্ভুক্ত করে নিন। এরপর আরেকজন আনসারী দাঁড়িয়ে বললেন, ইয়া রাসূলাল্লাহ। আপনি আল্লাহর কাছে দু’আ করুন তিনি যেন আমাকেও তাদের অন্তর্ভুক্ত করে  নেন। রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়া সাল্লাম বললেনঃ এ সুযোগ লাভে উক্কাশাহ তোমার অগ্রগামী হয়ে গেছে। (ইসলামিক ফাউন্ডেশনঃ ৪১৫, ইসলামিক সেন্টারঃ ৪২৯)</RoundBox>
                     <Image contentFit="cover" style={style.top_minar} source={require('@/assets/images/hometopbg.png')} />
                 </View>
+                
             </ImageBackground>
+            <View style={style.grid}>
+                {
+                    items.map( (item,key) => {
+                        return(
+                            <IconBox title="abcd" key={key}/>
+                        )
+                    })
+                }
+            </View>
+            <RoundBox title="পরিচ্ছেদঃ ৯৪. হিসাব ও শাস্তি ছাড়াই ">সাল্লাম বললেনঃ এ সুযোগ লাভে উক্কাশাহ তোমার অগ্রগামী হয়ে গেছে। (ইসলামিক ফাউন্ডেশনঃ ৪১৫, ইসলামিক সেন্টারঃ ৪২৯)</RoundBox>
+            <RoundBox title="পরিচ্ছেদঃ ৯৪. হিসাব ও শাস্তি ছাড়াই ">সাল্লাম বললেনঃ এ সুযোগ লাভে উক্কাশাহ তোমার অগ্রগামী হয়ে গেছে। (ইসলামিক ফাউন্ডেশনঃ ৪১৫, ইসলামিক সেন্টারঃ ৪২৯)</RoundBox>
+            
         </ScrollView>
     )
 }
 export default Home;
 const style = StyleSheet.create({
-    container:{},
+    container:{
+        backgroundColor:'#EFF6F3'
+    },
     top_minar:{
         width:'100%',
-        height:200
+        height:200,
+        marginBottom:20,
+        borderBottomEndRadius:30,
+        borderBottomStartRadius:30,
     },
     topItems:{
         flex:1,
@@ -30,6 +49,22 @@ const style = StyleSheet.create({
     topBg:{
         backgroundColor:"#59D8B2",
         paddingTop:20,
-        paddingBottom:0
+        paddingBottom:0,
+        borderBottomEndRadius:70,
+        borderBottomStartRadius:70,
+
+    },
+    grid:{
+        flex:1,
+        flexWrap:'wrap',
+        flexDirection:'row',
+        justifyContent:'center',
+        gap:10,
+        backgroundColor:'#fff',
+        padding:20,
+        marginTop:-30,
+        borderRadius:30,
+        marginHorizontal:10,
+        boxShadow:'0 0 10px rgba(0,0,0,.1)'
     }
 });

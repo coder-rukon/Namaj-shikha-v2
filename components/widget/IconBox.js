@@ -1,0 +1,47 @@
+import { Image } from 'expo-image';
+import { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+
+class IconBox extends Component {
+    render() {
+        return (
+            <View style={style.container}>
+                <View style={style.icon}>
+                    <Image contentFit="cover" style={style.icon_symbol} source={require('@/assets/images/hometopbg.png')} />
+                </View>
+                <Text style={style.title}>{this.props.title}</Text>
+            </View>
+        );
+    }
+}
+
+export default IconBox;
+const style =  StyleSheet.create({
+    container:{
+        width:70,
+        maxWidth:70
+    },
+
+    icon:{
+        backgroundColor:'#DFFAF3',
+        borderRadius:10,
+        padding:5,
+        minWidth:70,
+        minHeight:70,
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    icon_symbol:{
+        width:50,
+        height:50
+    },
+    title:{
+        fontSize:15,
+        fontWeight:600,
+        color:'#46C7A0',
+        marginBottom:10,
+        textAlign:'center'
+    },
+})
