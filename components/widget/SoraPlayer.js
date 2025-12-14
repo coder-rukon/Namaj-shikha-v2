@@ -20,9 +20,15 @@ class SoraPlayer extends Component {
     async componentDidMount(){
         let player = await Audio.Sound.createAsync(this.props.file, { shouldPlay: false }, this.onPlayerReady.bind(this));
         this.audioPlayer= player.sound;
+        if(this.props.onReady){
+            this.props.onReady(this);
+        }
     }
     onPlayerReady(status){
         if (!status.isLoaded) return;
+        if(this.props.onTimeChange){
+            this.props.onTimeChange(status);
+        }
         this.setState({
             playerStatus:status
         })
@@ -44,7 +50,6 @@ class SoraPlayer extends Component {
             isLooping:loop
         })
         if (this.audioPlayer) {
-            alert("done")
             await this.audioPlayer.setIsLoopingAsync(loop);
         }
     }
@@ -85,8 +90,11 @@ class SoraPlayer extends Component {
         }
     }
     async onSlidingComplete(sliderValue){
+        await this.setAudioPlayerTime(sliderValue);
+    }
+    async setAudioPlayerTime(time){
         if(this.audioPlayer){
-            await this.audioPlayer.setPositionAsync(sliderValue);
+            await this.audioPlayer.setPositionAsync(time);
             await this.audioPlayer.playAsync();
         }
     }
