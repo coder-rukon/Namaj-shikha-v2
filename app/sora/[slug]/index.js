@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import SoraBox from '../../../components/widget/SoraBox';
+import SoraPlayer from '../../../components/widget/SoraPlayer';
 
 class Index extends Component {
     constructor(props){
@@ -76,6 +77,7 @@ class Index extends Component {
                 source={require('@/assets/images/bg-primary.jpg')}
             >
                 <ScrollView>
+                    <SoraPlayer file={require('@/assets/audio/88855.mp3')}/>
                     <View style={style.container}>
                         <SoraBox topTitle="Arabic" title="আল-ফাতিহা">
                             {
