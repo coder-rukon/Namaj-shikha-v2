@@ -17,6 +17,7 @@ const Home = () => {
         {title:'পাঁচ ওয়াক্ত নামাজের নিয়ম ',link:'/page/kalima'},
         {title:'মহিলাদের নামাজের নিয়ম',link:'/page/kalima'},
         {title:'তাহাজ্জুদ নামাজের নিয়ম',link:'/page/kalima'},
+        {title:'Tasbeeh',link:'/page/tasbeeh'},
     ]
     return(
         <ScrollView style={style.container}>
