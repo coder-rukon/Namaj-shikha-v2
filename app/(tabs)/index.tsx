@@ -3,7 +3,7 @@ import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 const Home = () => {
-    let items = [{},{},{},{},{},{},{},{},{},{},{}]
+    let items = [{title:'Kalima',link:'/page/kalima'},{},{},{},{},{},{},{},{},{},{}]
     return(
         <ScrollView style={style.container}>
             <ImageBackground
@@ -19,7 +19,7 @@ const Home = () => {
                 {
                     items.map( (item,key) => {
                         return(
-                            <IconBox title="abcd" key={key}/>
+                            <IconBox title={item.title ? item.title : ''} link={item?.link} key={key}/>
                         )
                     })
                 }
