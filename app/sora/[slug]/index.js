@@ -3,8 +3,72 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-nativ
 import SoraBox from '../../../components/widget/SoraBox';
 
 class Index extends Component {
+    constructor(props){
+        super(props),
+        this.state = {
+            audioCurrentTime:0
+        }
+    }
+    onWordPress(word) {
+        this.setState({
+            audioCurrentTime: word.timeEnd
+        })
+    }
+    getColor(word){
+        let currentTime = this.state.audioCurrentTime;
+        let output = {
+            color:"#000"
+        }
+        if( currentTime == word.timeEnd){
+            output.color = "red";
+        }
+        return output;
+    }
     render() {
-        let items = [{name:'সূরা আল-ফাতিহা'},{name:'সূরা আল-বাকারা'},{name:'সূরা আলে ইমরান'},{name:'সূরা আন-নিসা'},{name:'সূরা আল-ফাতিহা'},{name:'সূরা আল-বাকারা'},{name:'সূরা আলে ইমরান'},{name:'সূরা আন-নিসা'},{name:'সূরা আল-ফাতিহা'},{name:'সূরা আল-বাকারা'},{name:'সূরা আলে ইমরান'},{name:'সূরা আন-নিসা'},{name:'সূরা আল-ফাতিহা'},{name:'সূরা আল-বাকারা'},{name:'সূরা আলে ইমরান'},{name:'সূরা আন-নিসা'},{name:'সূরা আল-ফাতিহা'},{name:'সূরা আল-বাকারা'},{name:'সূরা আলে ইমরান'},{name:'সূরা আন-নিসা'}]
+        let sora = [
+                {
+                    bn:'আলহামদু লিল্লাহি রব্বিল আ -লামি-ন।',
+                    ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
+                    meaning:'যাবতীয় প্রশংসা আল্লাহ তা’আলার যিনি সকল সৃষ্টি জগতের পালনকর্তা।',
+                    timeStart:0,
+                    timeEnd:100
+                },
+                {
+                    bn:'আররহমা-নির রাহি-ম।',
+                    ar:'الرَّحْمَٰنِ الرَّحِيمِ',
+                    meaning:'যিনি নিতান্ত মেহেরবান ও দয়ালু।',
+                    timeStart:101,
+                    timeEnd:200
+                },
+                {
+                    bn:'মা-লিকি ইয়াওমিদ্দি-ন।',
+                    ar:'مَالِكِ يَوْمِ الدِّينِ',
+                    meaning:'বিচার দিনের একমাত্র অধিপতি।',
+                    timeStart:201,
+                    timeEnd:300
+                },
+                {
+                    bn:`ইয়্যা-কা না’বুদু ওয়া ইয়্যা-কা নাসতাই’-ন`,
+                    ar:'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ',
+                    meaning:'আমরা একমাত্র তোমারই ইবাদত করি এবং শুধুমাত্র তোমারই সাহায্য প্রার্থনা করি।',
+                    timeStart:301,
+                    timeEnd:400
+                },
+                {
+                    bn:`ইহদিনাস সিরাতা’ল মুসতাকি’-ম`,
+                    ar:'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
+                    meaning:'আমাদের সরল পথ দেখাও।',
+                    timeStart:401,
+                    timeEnd:500
+                },
+                {
+                    bn:'সিরাতা’ল্লা যি-না আনআ’মতা আ’লাইহিম গা’ইরিল মাগ’দু’বি আ’লাইহিম ওয়ালা দ্দ-ল্লি-ন।',
+                    ar:'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ',
+                    meaning:'সে সমস্ত লোকের পথ, যাদেরকে তুমি নেয়ামত দান করেছ। তাদের পথ নয়, যাদের প্রতি তোমার গজব নাযিল হয়েছে এবং যারা পথভ্রষ্ট হয়েছে।',
+                    timeStart:501,
+                    timeEnd:600
+                }
+            ];
         return (
             <ImageBackground
                 style={style.background}
@@ -13,17 +77,33 @@ class Index extends Component {
             >
                 <ScrollView>
                     <View style={style.container}>
-                        <SoraBox topTitle="Bangla" title="আল-ফাতিহা">
-                            <Text style={style.word}>সূরা</Text>
-                            <Text style={style.word}>আল-ফাতিহা-ই</Text>
-                            <Text style={style.word}>সর্বপ্রথম</Text>
-                            <Text style={style.word}>কুরআন</Text>
-                            <Text style={style.word}>মজীদের</Text>
-                            <Text style={style.word}>একটি</Text>
-                            <Text style={style.word}>পূর্ণাঙ্গ </Text>
-                            <Text style={style.word}>সূরা </Text>
+                        <SoraBox topTitle="Arabic" title="আল-ফাতিহা">
+                            {
+                                sora.map( (soraWord,key) => {
+                                    return(
+                                        <Text key={key} style={{...style.word,direction:'rtl',fontSize:25,lineHeight:35, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.ar} </Text>
+                                    )
+                                })
+                            }
                         </SoraBox>
-                        <SoraBox/>
+                        <SoraBox topTitle="Bangla" title="বিসমিল্লাহির রাহমানির রাহিম">
+                            {
+                                sora.map( (soraWord,key) => {
+                                    return(
+                                        <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.bn} </Text>
+                                    )
+                                })
+                            }
+                        </SoraBox>
+                        <SoraBox topTitle="Bangla Meaning" title="বিসমিল্লাহির রাহমানির রাহিম">
+                            {
+                                sora.map( (soraWord,key) => {
+                                    return(
+                                        <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.meaning} </Text>
+                                    )
+                                })
+                            }
+                        </SoraBox>
                         <SoraBox/>
                     </View>
                 </ScrollView>
@@ -43,6 +123,7 @@ const style = StyleSheet.create({
     },
     word:{
         fontSize:16,
-        color:'#000'
+        color:'#000',
+        lineHeight: 24
     }
 })

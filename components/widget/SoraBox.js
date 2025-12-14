@@ -8,7 +8,7 @@ class SoraBox extends Component {
                 {this.props.topTitle ? <View style={style.topLabelwraper}><Text style={style.topLabel}>{this.props.topTitle}</Text></View> : null}
                 <View style={style.card}>
                     {this.props.title ? <Text style={style.title}>{this.props.title}</Text> : null }
-                    <View style={style.content}>{this.props.children}</View>
+                    <Text style={style.content}>{this.props.children}</Text>
                 </View>
             </View>
         );
@@ -47,12 +47,13 @@ const style = StyleSheet.create({
     content:{
         fontSize:16,
         padding:10,
+        paddingBottom:20,
         borderRadius:4,
         backgroundColor:'#e2e2e2ff',
         flex:1,
         flexDirection:'row',
         justifyContent: 'flex-start',
-        gap:1,
+        gap:4,
         flexWrap:'wrap'
     }
 })
