@@ -1,12 +1,17 @@
+import { Link } from 'expo-router';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 class RoundBox extends Component {
+
     render() {
         return (
+            
             <View style={style.container}>
-                <Text style={style.title}>{this.props.title}</Text>
-                <Text style={style.text}>{this.props.children}</Text>
+                <Link href="/menu/2525">
+                    <Text style={style.title}>{this.props.title}</Text>
+                    <Text style={style.text}>{this.props.children}</Text>
+                </Link>
             </View>
         );
     }

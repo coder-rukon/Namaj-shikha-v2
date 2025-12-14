@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import { Link } from 'expo-router';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -6,12 +7,14 @@ import { StyleSheet, Text, View } from 'react-native';
 class IconBox extends Component {
     render() {
         return (
-            <View style={style.container}>
-                <View style={style.icon}>
-                    <Image contentFit="cover" style={style.icon_symbol} source={require('@/assets/images/hometopbg.png')} />
+            <Link href={'/menu/125'} style={style.container}>
+                <View style={style.container}>
+                        <View style={style.icon}>
+                            <Image contentFit="cover" style={style.icon_symbol} source={require('@/assets/images/hometopbg.png')} />
+                        </View>
+                        <Text style={style.title}>{this.props.title}</Text>
                 </View>
-                <Text style={style.title}>{this.props.title}</Text>
-            </View>
+            </Link>
         );
     }
 }
