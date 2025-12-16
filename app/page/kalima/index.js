@@ -1,11 +1,23 @@
+import AppHeader from '@/components/header/AppHeader';
 import { Component } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text } from 'react-native';
+import { WithNavigation } from '../../../components/hoc/withNavigation';
 import BorderBox from '../../../components/widget/BorderBox';
 import TitleRound from '../../../components/widget/TitleRound';
-
 class Index extends Component {
+    constructor(props){
+        super(props);
+    }
+    componentDidMount() {
+        
+        this.props.navigation.setOptions({
+            headerShown: false, // 👈 Hide header from inside the class
+        });
+    }
     render() {
         return (
+            <>
+            <AppHeader title="Test app"/>
             <ScrollView>
                 <ImageBackground
                     style={style.container}
@@ -40,11 +52,12 @@ class Index extends Component {
                     </BorderBox>
                 </ImageBackground>
             </ScrollView>
+            </>
         );
     }
 }
 
-export default Index;
+export default WithNavigation(Index);
 const style = StyleSheet.create({
     container:{
         flex:1,

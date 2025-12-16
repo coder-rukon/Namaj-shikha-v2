@@ -1,8 +1,11 @@
+import AppHeader from '@/components/header/AppHeader';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Image } from 'expo-image';
 import { Component } from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, Vibration, View } from 'react-native';
+import { WithNavigation } from '../../../components/hoc/withNavigation';
+
 class Index extends Component {
     constructor(props){
         super(props);
@@ -11,6 +14,12 @@ class Index extends Component {
             vibrate:true,
             sound:false
         }
+    }
+    componentDidMount() {
+        
+        this.props.navigation.setOptions({
+            headerShown: false, // 👈 Hide header from inside the class
+        });
     }
     onAddClick(){
         let currentVlue = this.state.value;
@@ -38,6 +47,7 @@ class Index extends Component {
                     style={style.container}
                     resizeMode='contain'
                 >
+                    <AppHeader title="তাসবিহ"/>
                     <View style={style.topView}>
                         <View style={{justifyContent:'center', flexDirection:'row',gap:10,padding:10}}>
 
@@ -63,7 +73,7 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default WithNavigation(Index);
 const style = StyleSheet.create({
     container:{
         flex:1,

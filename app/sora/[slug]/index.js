@@ -1,5 +1,8 @@
+import AppHeader from '@/components/header/AppHeader';
 import { Component } from 'react';
+
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { WithNavigation } from '../../../components/hoc/withNavigation';
 import SoraBox from '../../../components/widget/SoraBox';
 import SoraPlayer from '../../../components/widget/SoraPlayer';
 
@@ -10,6 +13,12 @@ class Index extends Component {
             audioCurrentTime:0
         }
         this.audioPlayer = null;
+    }
+    componentDidMount() {
+        
+        this.props.navigation.setOptions({
+            headerShown: false, // 👈 Hide header from inside the class
+        });
     }
     onWordPress(word) {
         let startTime = word.timeStart;
@@ -89,6 +98,7 @@ class Index extends Component {
                 resizeMode="cover"
                 source={require('@/assets/images/bg-primary.jpg')}
             >
+                <AppHeader title="সূরা"/>
                 <ScrollView>
                     <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={require('@/assets/audio/88855.mp3')}/>
                     <View style={style.container}>
@@ -128,7 +138,7 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default WithNavigation( Index);
 const style = StyleSheet.create({
     background:{
         flex:1,
