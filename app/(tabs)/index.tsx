@@ -7,17 +7,15 @@ import TitleRound from '../../components/widget/TitleRound';
 const Home = () => {
     let items = [
         {title:'কালিমা',link:'/page/kalima'},
-        {title:'সুরা',link:'/menu/kalima'},
+        {title:'সূরা',link:'/menu/kalima'},
         {title:'দোয়া',link:'/page/kalima'},
-        {title:'হাদিস',link:'/page/kalima'},
         {title:'নামাজের গুরুত্ব ও ফযীলত',link:'/page/kalima'},
-        {title:'ওযু করার নিয়ম',link:'/page/kalima'},
-        {title:'ফরজ নামাজের নিয়ম',link:'/page/kalima'},
-        {title:'সুন্নত নামাজের নিয়ম',link:'/page/kalima'},
-        {title:'পাঁচ ওয়াক্ত নামাজের নিয়ম ',link:'/page/kalima'},
-        {title:'মহিলাদের নামাজের নিয়ম',link:'/page/kalima'},
-        {title:'তাহাজ্জুদ নামাজের নিয়ম',link:'/page/kalima'},
-        {title:'Tasbeeh',link:'/page/tasbeeh'},
+        {title:'ভিবিন্ন নামাজের নিয়ম',link:'/page/kalima'},
+        {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name'},
+        {title:'হাদিস',link:'/page/kalima'},
+        {title:'তাসবিহ',link:'/page/tasbeeh'},
+        {title:'রমাদান',link:'/page/tasbeeh'},
+        {title:'যিকির',link:'/page/tasbeeh'},
     ]
     return(
         <ScrollView style={style.container}>
@@ -83,7 +81,7 @@ const style = StyleSheet.create({
         flex:1,
         flexWrap:'wrap',
         flexDirection:'row',
-        justifyContent:'center',
+        justifyContent:'space-between',
         gap:10,
         backgroundColor:'#fff',
         padding:20,

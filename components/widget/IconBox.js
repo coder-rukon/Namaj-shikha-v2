@@ -10,10 +10,13 @@ class IconBox extends Component {
         return (
             <Link href={link ? link : '/abds'} style={style.container}>
                 <View style={style.container}>
+                    <View>
                         <View style={style.icon}>
                             <Image contentFit="cover" style={style.icon_symbol} source={require('@/assets/images/hometopbg.png')} />
                         </View>
-                        <Text style={style.title}>{this.props.title}</Text>
+                    </View>
+                    
+                    <Text style={style.title}>{this.props.title}</Text>
                 </View>
             </Link>
         );
@@ -23,22 +26,23 @@ class IconBox extends Component {
 export default IconBox;
 const style =  StyleSheet.create({
     container:{
-        width:80,
-        maxWidth:80,
-        justifyContent:'center'
+        width:110,
+        maxWidth:110,
+        justifyContent:'center',
+        
     },
 
     icon:{
         backgroundColor:'#DFFAF3',
         borderRadius:20,
         padding:5,
-        width:70,
-        height:70,
-        flex:1,
+        width:90,
+        height:90,
         alignItems:'center',
         justifyContent:'center',
         marginLeft:'auto',
-        marginRight:'auto'
+        marginRight:'auto',
+        
     },
     icon_symbol:{
         width:50,
