@@ -4,18 +4,19 @@ import { Image } from 'expo-image';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import BorderBox from '../../components/widget/BorderBox';
 import TitleRound from '../../components/widget/TitleRound';
+import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
-        {title:'কালিমা',link:'/page/kalima'},
-        {title:'সূরা',link:'/menu/kalima'},
-        {title:'দোয়া',link:'/page/kalima'},
-        {title:'নামাজের গুরুত্ব ও ফযীলত',link:'/page/kalima'},
-        {title:'ভিবিন্ন নামাজের নিয়ম',link:'/page/kalima'},
-        {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name'},
-        {title:'হাদিস',link:'/page/kalima'},
-        {title:'তাসবিহ',link:'/page/tasbeeh'},
-        {title:'রমাদান',link:'/page/tasbeeh'},
-        {title:'যিকির',link:'/page/tasbeeh'},
+        {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
+        {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
+        {title:'দোয়া',link:'/menu/9',icon:IconNames.dua},
+        {title:'নামাজের গুরুত্ব ও ফযীলত',link:'/page/kalima',icon:IconNames.default},
+        {title:'ভিবিন্ন নামাজের নিয়ম',link:'/page/kalima',icon:IconNames.default},
+        {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name',icon:IconNames.default},
+        {title:'হাদিস',link:'/page/kalima',icon:IconNames.default},
+        {title:'তাসবিহ',link:'/page/tasbeeh',icon:IconNames.default},
+        {title:'রমাদান',link:'/page/tasbeeh',icon:IconNames.default},
+        {title:'যিকির',link:'/page/tasbeeh',icon:IconNames.default},
     ]
     return(
         <ScrollView style={style.container}>
@@ -32,7 +33,7 @@ const Home = () => {
                 {
                     items.map( (item,key) => {
                         return(
-                            <IconBox title={item.title ? item.title : ''} link={item?.link} key={key}/>
+                            <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
                         )
                     })
                 }

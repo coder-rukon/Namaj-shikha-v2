@@ -1,3 +1,4 @@
+import IconNames from '@/constants/IconNames';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Component } from 'react';
@@ -8,11 +9,11 @@ class IconBox extends Component {
     render() {
         let link = this.props.link;
         return (
-            <Link href={link ? link : '/abds'} style={style.container}>
+            <Link href={link ? link : '/'} style={style.container}>
                 <View style={style.container}>
                     <View>
                         <View style={style.icon}>
-                            <Image contentFit="cover" style={style.icon_symbol} source={require('@/assets/images/hometopbg.png')} />
+                            <Image contentFit="cover" style={style.icon_symbol} source={this.props.icon ? this.props.icon : IconNames.default} />
                         </View>
                     </View>
                     

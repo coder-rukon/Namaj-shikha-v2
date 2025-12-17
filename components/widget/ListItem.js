@@ -2,15 +2,17 @@ import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import IconNames from '../../constants/IconNames';
 
 class ListItem extends Component {
     render() {
-        let {name} = this.props.item
+        let {name,link,icon} = this.props.item;
+        let iconName = icon ? IconNames[icon] : IconNames.default;
         return (
             <View style={style.container}>
-                <Link href={'/sora/abcd'} >
+                <Link href={link} >
                     <View style={style.list_item}>
-                        <Image contentFit="cover" style={style.icon} source={require('@/assets/images/hometopbg.png')} />
+                        <Image contentFit="cover" style={style.icon} source={iconName} />
                         <Text style={style.title}>{name}</Text>
                     </View>
                 </Link>
