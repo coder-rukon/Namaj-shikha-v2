@@ -1,6 +1,7 @@
 import AppHeader from '@/components/header/AppHeader';
 import { Component } from 'react';
 
+import axios from 'axios';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
 import SoraBox from '../../../components/widget/SoraBox';
@@ -10,6 +11,7 @@ class Index extends Component {
     constructor(props){
         super(props),
         this.state = {
+            sura:{},
             audioCurrentTime:0
         }
         this.audioPlayer = null;
@@ -19,6 +21,17 @@ class Index extends Component {
         this.props.navigation.setOptions({
             headerShown: false, // 👈 Hide header from inside the class
         });
+        this.loadSura();
+    }
+    loadSura(){
+        let id =this.props.params.slug;
+        axios.get('http://192.168.0.200:8000/api/app-content/details/6').then(res => {
+            if(res.data.type){
+                this.setState({
+                    sura:res.data.data
+                })
+            }
+        })
     }
     onWordPress(word) {
         let startTime = word.timeStart;
@@ -47,50 +60,8 @@ class Index extends Component {
         })
     }
     render() {
-        let sora = [
-                {
-                    bn:'আলহামদু লিল্লাহি রব্বিল আ -লামি-ন।',
-                    ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
-                    meaning:'যাবতীয় প্রশংসা আল্লাহ তা’আলার যিনি সকল সৃষ্টি জগতের পালনকর্তা।',
-                    timeStart:0,
-                    timeEnd:10000
-                },
-                {
-                    bn:'আররহমা-নির রাহি-ম।',
-                    ar:'الرَّحْمَٰنِ الرَّحِيمِ',
-                    meaning:'যিনি নিতান্ত মেহেরবান ও দয়ালু।',
-                    timeStart:10001,
-                    timeEnd:20000
-                },
-                {
-                    bn:'মা-লিকি ইয়াওমিদ্দি-ন।',
-                    ar:'مَالِكِ يَوْمِ الدِّينِ',
-                    meaning:'বিচার দিনের একমাত্র অধিপতি।',
-                    timeStart:20001,
-                    timeEnd:30000
-                },
-                {
-                    bn:`ইয়্যা-কা না’বুদু ওয়া ইয়্যা-কা নাসতাই’-ন`,
-                    ar:'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ',
-                    meaning:'আমরা একমাত্র তোমারই ইবাদত করি এবং শুধুমাত্র তোমারই সাহায্য প্রার্থনা করি।',
-                    timeStart:30001,
-                    timeEnd:35000
-                },
-                {
-                    bn:`ইহদিনাস সিরাতা’ল মুসতাকি’-ম`,
-                    ar:'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
-                    meaning:'আমাদের সরল পথ দেখাও।',
-                    timeStart:35001,
-                    timeEnd:40000
-                },
-                {
-                    bn:'সিরাতা’ল্লা যি-না আনআ’মতা আ’লাইহিম গা’ইরিল মাগ’দু’বি আ’লাইহিম ওয়ালা দ্দ-ল্লি-ন।',
-                    ar:'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ',
-                    meaning:'সে সমস্ত লোকের পথ, যাদেরকে তুমি নেয়ামত দান করেছ। তাদের পথ নয়, যাদের প্রতি তোমার গজব নাযিল হয়েছে এবং যারা পথভ্রষ্ট হয়েছে।',
-                    timeStart:40001,
-                    timeEnd:48000
-                }
-            ];
+        let sura = this.state.sura;
+        let suraData = sura.data ? sura.data : [];
         let audioCurrentTime = this.state.audioCurrentTime;
         return (
             <ImageBackground
@@ -98,13 +69,13 @@ class Index extends Component {
                 resizeMode="cover"
                 source={require('@/assets/images/bg-primary.jpg')}
             >
-                <AppHeader title="সূরা"/>
+                <AppHeader title={sura.name}/>
                 <ScrollView>
                     <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={require('@/assets/audio/88855.mp3')}/>
                     <View style={style.container}>
                         <SoraBox topTitle="Arabic" title="আল-ফাতিহা">
                             {
-                                sora.map( (soraWord,key) => {
+                                suraData.map( (soraWord,key) => {
                                     return(
                                         <Text key={key} style={{...style.word,direction:'rtl',fontSize:25,lineHeight:35, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.ar} </Text>
                                     )
@@ -113,7 +84,7 @@ class Index extends Component {
                         </SoraBox>
                         <SoraBox topTitle="Bangla" title="বিসমিল্লাহির রাহমানির রাহিম">
                             {
-                                sora.map( (soraWord,key) => {
+                                suraData.map( (soraWord,key) => {
                                     return(
                                         <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.bn} </Text>
                                     )
@@ -122,7 +93,7 @@ class Index extends Component {
                         </SoraBox>
                         <SoraBox topTitle="Bangla Meaning" title="বিসমিল্লাহির রাহমানির রাহিম">
                             {
-                                sora.map( (soraWord,key) => {
+                                suraData.map( (soraWord,key) => {
                                     return(
                                         <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.meaning} </Text>
                                     )
