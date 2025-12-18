@@ -1,14 +1,25 @@
 import * as SQLite from 'expo-sqlite';
 
 // Open database (synchronously)
-const db = SQLite.openDatabaseSync('rsnamajshikkha_v7');
+let db = SQLite.openDatabaseSync('rsnamajshikkhadb');
 export { db };
+export const deleteDatabase = async () => {
+  try {
+    await db.closeAsync();
+    await SQLite.deleteDatabaseAsync('rsnamajshikkhadb');
+    console.log('Database deleted successfully');
+  } catch (error) {
+    console.log('Error deleting database:', error);
+  }
+};
 // Initialize tables
 export const initDatabase = async () => {
+  db = SQLite.openDatabaseSync('rsnamajshikkhadb');
   try {
     await db.execAsync(`
         PRAGMA journal_mode = WAL;
-        CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY NOT NULL,remote_id INTEGER UNIQUE, name TEXT NOT NULL, admin_name TEXT, icon TEXT, menu_items TEXT NOT NULL );
+        CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, admin_name TEXT, icon TEXT, menu_items TEXT NOT NULL );
+        CREATE TABLE IF NOT EXISTS app_content (id INTEGER PRIMARY KEY NOT NULL,name TEXT NOT NULL, content_type TEXT, name_ar TEXT, name_eng TEXT ,  audio_file TEXT ,  data TEXT , desctiption TEXT );
         `);
 
     console.log('Table created successfully!');
@@ -16,16 +27,35 @@ export const initDatabase = async () => {
     console.log('Error creating table:', error);
   }
 };
+export const clearTables =async (menuItem) => {
+  await db.execAsync( `
+      DELETE FROM menu;
+      DELETE FROM app_content;
+      
+    `);
+    console.log("Clear all tables")
+}
+export const insertAppContentItem =async (content) => {
+  await db.runAsync(
+    `INSERT INTO app_content (id, name, content_type, name_ar, name_eng, audio_file, data, desctiption)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      content.id,
+      content.name,
+      content.content_type,
+      content.name_ar ?? null,
+      content.name_eng ?? null,
+      content.audio_file ?? null,
+      JSON.stringify(content.data),
+      content.desctiption ?? null,
+    ]
+  );
+  //await db.runAsync('INSERT INTO menu (remote_id,name, admin_name,icon,menu_items) VALUES ("'+menuItem?.id+'", "'+menuItem?.name+'", "'+menuItem?.admin_name+'", "'+menuItem?.icon+'", "'+ JSON.stringify(menuItem?.menu_items)+'")');
+}
 export const InsertMenuItem =async (menuItem) => {
   await db.runAsync(
-    `INSERT INTO menu (remote_id, name, admin_name, icon, menu_items)
-  VALUES (?, ?, ?, ?, ?)
-  ON CONFLICT(remote_id) DO UPDATE SET
-    name = excluded.name,
-    admin_name = excluded.admin_name,
-    icon = excluded.icon,
-    menu_items = excluded.menu_items
-  `,
+    `INSERT INTO menu (id, name, admin_name, icon, menu_items)
+  VALUES (?, ?, ?, ?, ?)`,
     [
       menuItem.id,
       menuItem.name,
@@ -36,12 +66,24 @@ export const InsertMenuItem =async (menuItem) => {
   );
   //await db.runAsync('INSERT INTO menu (remote_id,name, admin_name,icon,menu_items) VALUES ("'+menuItem?.id+'", "'+menuItem?.name+'", "'+menuItem?.admin_name+'", "'+menuItem?.icon+'", "'+ JSON.stringify(menuItem?.menu_items)+'")');
 }
-export const getTables = async () => {
+export const getAppContentTable = async () => {
+  try {
+    //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
+    const app_content = await db.getAllAsync('SELECT * FROM app_content');
+    app_content.forEach(app_con => {
+      console.log('id='+app_con.id, app_con.name);
+      
+    });
+  } catch (error) {
+    console.log('Error fetching tables:', error);
+  }
+};
+export const getMenuTable = async () => {
   try {
     //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
     const menuItems = await db.getAllAsync('SELECT * FROM menu');
     menuItems.forEach(menu => {
-      console.log('id='+menu.remote_id, menu.name);
+      console.log('id='+menu.id, menu.name);
       
     });
   } catch (error) {

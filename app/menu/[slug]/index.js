@@ -26,7 +26,7 @@ class Index extends Component {
         let menu_id =this.state.menu_id ? this.state.menu_id : null;
         try {
         //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
-            const menu = await db.getFirstAsync('SELECT * FROM menu where remote_id = '+menu_id);
+            const menu = await db.getFirstAsync('SELECT * FROM menu where id = '+menu_id);
             this.setState({
                 menuName:menu?.name,
                 items:menu ? JSON.parse(menu.menu_items) : [],

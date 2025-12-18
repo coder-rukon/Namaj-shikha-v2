@@ -1,14 +1,11 @@
 import Helper from '@/constants/Helper';
-import { getTables, initDatabase, InsertMenuItem } from "@/database/db";
+import { clearTables, deleteDatabase, getAppContentTable, getMenuTable, initDatabase, insertAppContentItem, InsertMenuItem } from "@/database/db";
 import axios from 'axios';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 export default function TabTwoScreen() {
   const setup = async () => {
       await initDatabase();
   };
-  const getT = () => {
-    getTables();
-  }  
   const updateMenu =  () => {
     axios.get(Helper.apiUrl+'/p/menu/list')
     .then(res => {
@@ -20,13 +17,34 @@ export default function TabTwoScreen() {
     .catch(err => {
       console.error(err);
     });
+  }  
+  const updateAppContents =  () => {
+    axios.get(Helper.apiUrl+'/app-content/list')
+    .then(res => {
+      let data = res.data.data;
+      data.forEach((dataItem: any) => {
+        insertAppContentItem(dataItem)
+        //InsertMenuItem(jsonMenu)
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    });
   }
+  
   return (
-    <View>
-      <Text style={{marginTop:150}} onPress={setup}>Create database</Text>
-      <Text style={{marginTop:20}} onPress={getT}>Get Tablse</Text>
-      <Text style={styles.button} onPress={updateMenu}>Menu Update</Text>
-    </View>
+    <ScrollView>
+
+      <View>
+        <Text style={{...styles.button,marginTop:70}} onPress={e => { deleteDatabase()}}>Delete Database</Text>
+        <Text style={{...styles.button}} onPress={setup}>Create database</Text>
+        <Text style={styles.button} onPress={ e => { clearTables()}}>Clear All Tables</Text>
+        <Text style={styles.button} onPress={updateMenu}>Update Menu Table</Text>
+        <Text style={styles.button} onPress={e => { getMenuTable() }}> Print Menu Table</Text>
+        <Text style={styles.button} onPress={updateAppContents}>Update Content Database</Text>
+        <Text style={styles.button} onPress={ e => { getAppContentTable()}}>Print Content Table</Text>
+      </View>
+    </ScrollView>
   );
 }
 
