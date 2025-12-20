@@ -3,6 +3,7 @@ import Slider from '@react-native-community/slider';
 import { Audio } from 'expo-av';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import AudioFileHander from '../../constants/AudioFileHandler';
 class SoraPlayer extends Component {
     constructor(props){
         super(props);
@@ -16,9 +17,13 @@ class SoraPlayer extends Component {
             }
         }
         this.audioPlayer = null;
+        this.fileHelper = new AudioFileHander(this.props.file);
     }
     async componentDidMount(){
-        let player = await Audio.Sound.createAsync(this.props.file, { shouldPlay: false }, this.onPlayerReady.bind(this));
+        let fileUri = await this.fileHelper.downloadFile('https://freevaly.com/public/');
+        console.log(fileUri);
+        
+        let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: false }, this.onPlayerReady.bind(this));
         this.audioPlayer= player.sound;
         if(this.props.onReady){
             this.props.onReady(this);

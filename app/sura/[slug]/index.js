@@ -71,7 +71,7 @@ class Index extends Component {
             >
                 <AppHeader title={sura.name}/>
                 <ScrollView>
-                    <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={require('@/assets/audio/88855.mp3')}/>
+                    <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={'002_Al-Baqara2.mp3'}/>
                     <View style={style.container}>
                         <SoraBox topTitle="Arabic" title="আল-ফাতিহা">
                             {
