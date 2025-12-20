@@ -1,5 +1,5 @@
 import Helper from '@/constants/Helper';
-import { clearTables, deleteDatabase, getAppContentTable, getMenuTable, initDatabase, insertAppContentItem, InsertMenuItem } from "@/database/db";
+import { clearTables, deleteDatabase, getAppContentTable, getMenuTable, getPageContents, initDatabase, insertAppContentItem, InsertMenuItem, InsertPageItem } from "@/database/db";
 import axios from 'axios';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 export default function TabTwoScreen() {
@@ -31,6 +31,19 @@ export default function TabTwoScreen() {
       console.error(err);
     });
   }
+  const updatePageContents =  () => {
+    axios.get(Helper.apiUrl+'/page/list')
+    .then(res => {
+      let data = res.data.data;
+      data.forEach((dataItem: any) => {
+        InsertPageItem(dataItem)
+        //InsertMenuItem(jsonMenu)
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
   
   return (
     <ScrollView>
@@ -43,6 +56,8 @@ export default function TabTwoScreen() {
         <Text style={styles.button} onPress={e => { getMenuTable() }}> Print Menu Table</Text>
         <Text style={styles.button} onPress={updateAppContents}>Update Content Database</Text>
         <Text style={styles.button} onPress={ e => { getAppContentTable()}}>Print Content Table</Text>
+        <Text style={styles.button} onPress={updatePageContents}>Update Page Database</Text>
+        <Text style={styles.button} onPress={ e => { getPageContents()}}>Print Page Table</Text>
       </View>
     </ScrollView>
   );

@@ -37,7 +37,6 @@ class Index extends Component {
     }
     render() {
         let items = this.state.items;
-        console.log(items)
         return (
             <ImageBackground
                 style={style.background}

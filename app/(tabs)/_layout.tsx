@@ -2,10 +2,9 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
+import FooterMenuItem from '@/components/widget/FooterMenuItem';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
@@ -19,15 +18,38 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'হোম',
+          tabBarButton: (props) => (
+            <FooterMenuItem {...props} title='হোম' link="/" icon="home"/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tasbeeh"
+        
+        options={{
+          title: 'তাসবিহ',
+          tabBarButton: (props) => (
+            <FooterMenuItem {...props} title='তাসবিহ' link="/page/tasbeeh" icon="counter"/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="sura"
+        options={{
+          title: 'সূরা',
+          tabBarButton: (props) => (
+            <FooterMenuItem {...props} title='সূরা' link="/menu/8" icon="format-list-bulleted"/>
+          ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'রমাদান',
+          tabBarButton: (props) => (
+            <FooterMenuItem {...props} title='রমাদান' link="/explore" icon="weather-sunny"/>
+          )
         }}
       />
     </Tabs>

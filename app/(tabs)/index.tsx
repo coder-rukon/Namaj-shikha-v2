@@ -10,13 +10,12 @@ const Home = () => {
         {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
         {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
         {title:'দোয়া',link:'/menu/9',icon:IconNames.dua},
-        {title:'নামাজের গুরুত্ব ও ফযীলত',link:'/page/kalima',icon:IconNames.default},
-        {title:'ভিবিন্ন নামাজের নিয়ম',link:'/page/kalima',icon:IconNames.default},
+        {title:'নামাজের গুরুত্ব ও ফযীলত',link:'/page/2',icon:IconNames.default},
+        {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.default},
+        {title:'ওযুর নিয়ম',link:'/page/12',icon:IconNames.default},
         {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name',icon:IconNames.default},
-        {title:'হাদিস',link:'/page/kalima',icon:IconNames.default},
-        {title:'তাসবিহ',link:'/page/tasbeeh',icon:IconNames.default},
-        {title:'রমাদান',link:'/page/tasbeeh',icon:IconNames.default},
-        {title:'যিকির',link:'/page/tasbeeh',icon:IconNames.default},
+        {title:'হাদিস',link:'/menu/7',icon:IconNames.default},
+        {title:'যিকির',link:'/page/1',icon:IconNames.default},
     ]
     return(
         <ScrollView style={style.container}>
