@@ -20,13 +20,18 @@ class SoraPlayer extends Component {
         this.fileHelper = new AudioFileHander(this.props.file);
     }
     async componentDidMount(){
-        let fileUri = await this.fileHelper.downloadFile('https://freevaly.com/public/');
-        console.log(fileUri);
-        
+        let fileUri = await this.fileHelper.downloadFile('https://namajshikkha.aonedevs.com/files/');
         let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: false }, this.onPlayerReady.bind(this));
         this.audioPlayer= player.sound;
         if(this.props.onReady){
             this.props.onReady(this);
+        }
+    }
+    async componentWillUnmount() {
+        if (this.audioPlayer) {
+        await this.audioPlayer.stopAsync();
+        await this.audioPlayer.unloadAsync();
+            this.audioPlayer = null;
         }
     }
     onPlayerReady(status){

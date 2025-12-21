@@ -1,7 +1,6 @@
 import AppHeader from '@/components/header/AppHeader';
+import { db } from "@/database/db";
 import { Component } from 'react';
-
-import axios from 'axios';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
 import SoraBox from '../../../components/widget/SoraBox';
@@ -23,24 +22,33 @@ class Index extends Component {
         });
         this.loadSura();
     }
-    loadSura(){
+    async loadSura(){
         let id =this.props.params.slug;
-        axios.get('http://192.168.0.200:8000/api/app-content/details/6').then(res => {
-            if(res.data.type){
-                this.setState({
-                    sura:res.data.data
-                })
+        try {
+        //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
+            const dbData = await db.getFirstAsync('SELECT * FROM app_content where id = '+id);
+            let sura = dbData;
+            if(sura){
+                sura.data = JSON.parse(sura.data); 
             }
-        })
+            this.setState({
+                sura:sura
+            })
+        } catch (error) {
+            console.log('Error fetching tables:', error);
+        }
     }
     onWordPress(word) {
-        let startTime = word.timeStart;
+        let startTime = word.time_start;
 
         this.setState({
             audioCurrentTime: startTime
         })
         if(this.audioPlayer){
-            this.audioPlayer.setAudioPlayerTime(startTime)
+            this.audioPlayer.setAudioPlayerTime(startTime);
+            this.audioPlayer.setState({
+                isPlaying:true
+            })
         }
 
     }
@@ -49,7 +57,7 @@ class Index extends Component {
         let output = {
             color:"#000"
         }
-        if( currentTime >word.timeStart && currentTime < word.timeEnd){
+        if( currentTime >word.time_start && currentTime < word.time_end){
             output.color = "red";
         }
         return output;
@@ -71,9 +79,9 @@ class Index extends Component {
             >
                 <AppHeader title={sura.name}/>
                 <ScrollView>
-                    <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={'002_Al-Baqara2.mp3'}/>
+                    {sura.audio_file && <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={sura.audio_file}/>}
                     <View style={style.container}>
-                        <SoraBox topTitle="Arabic" title="আল-ফাতিহা">
+                        <SoraBox topTitle="আরবি" title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ">
                             {
                                 suraData.map( (soraWord,key) => {
                                     return(
@@ -82,7 +90,7 @@ class Index extends Component {
                                 })
                             }
                         </SoraBox>
-                        <SoraBox topTitle="Bangla" title="বিসমিল্লাহির রাহমানির রাহিম">
+                        <SoraBox topTitle="উচ্চারন" title="বিসমিল্লাহির রাহমানির রাহিম">
                             {
                                 suraData.map( (soraWord,key) => {
                                     return(
@@ -91,7 +99,7 @@ class Index extends Component {
                                 })
                             }
                         </SoraBox>
-                        <SoraBox topTitle="Bangla Meaning" title="বিসমিল্লাহির রাহমানির রাহিম">
+                        <SoraBox topTitle="অর্থ" title="পরম করুণাময় এবং দয়ালু আল্লাহর নামে শুরু করছি।">
                             {
                                 suraData.map( (soraWord,key) => {
                                     return(
