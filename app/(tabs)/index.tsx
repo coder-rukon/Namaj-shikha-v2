@@ -59,9 +59,7 @@ const Home = () => {
                     }
                 </View>
             </View>
-            <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={style.boxShadow}>
-                সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ
-            </RoundBox>
+            
             <View style={style.gridWrapper}>
                 <Text style={style.gridTitle}>নামাজ শিক্ষা</Text>
                 <View style={style.grid}>
@@ -74,10 +72,7 @@ const Home = () => {
                     }
                 </View>
             </View>
-            <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow}} link='/page/2'>
-                ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় 
-                <Text style={{color:'#bd0606ff'}}> বিস্তারিত দেখুন</Text>
-            </RoundBox>            
+                     
             <View style={style.gridWrapper}>
                 <Text style={style.gridTitle}>পবিত্রতা</Text>
                 <View style={style.grid}>
@@ -90,6 +85,12 @@ const Home = () => {
                     }
                 </View>
             </View>
+             <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={{...style.boxShadow,marginBottom:0}} >
+                সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
+            </RoundBox>
+            <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/2'>
+                ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় ....
+            </RoundBox>  
             <View style={{padding:10, marginTop:10}}>
                 <BorderBox title="আজকের হাদিস" collapsable={false}>
                     
@@ -142,7 +143,7 @@ const style = StyleSheet.create({
     },
     gridWrapper:{
         backgroundColor:'#fff',
-        marginTop:5,
+        marginTop:10,
         borderRadius:30,
         marginHorizontal:10,
         boxShadow:'0 0 10px rgba(0,0,0,.1)'
@@ -172,6 +173,6 @@ const style = StyleSheet.create({
         marginVertical:10
     },
     boxShadow:{
-        boxShadow:'0 4px 4px rgba(0,0,0,.5)',
+        boxShadow:'0 2px 3px rgba(0,0,0,.5)',
     }
 });
