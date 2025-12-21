@@ -108,7 +108,6 @@ class Index extends Component {
                                 })
                             }
                         </SoraBox>
-                        <SoraBox/>
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -123,7 +122,8 @@ const style = StyleSheet.create({
         flex:1,
     },
     container:{
-        padding:20
+        padding:20,
+        paddingBottom:50
     },
     word:{
         fontSize:16,

@@ -7,15 +7,22 @@ import TitleRound from '../../components/widget/TitleRound';
 import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
-        {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
         {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
         {title:'দোয়া',link:'/menu/9',icon:IconNames.dua},
-        {title:'নামাজের গুরুত্ব ও ফযীলত',link:'/page/2',icon:IconNames.default},
-        {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.default},
-        {title:'ওযুর নিয়ম',link:'/page/12',icon:IconNames.default},
-        {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name',icon:IconNames.default},
         {title:'হাদিস',link:'/menu/7',icon:IconNames.default},
+        {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name',icon:IconNames.default},
+        {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
         {title:'যিকির',link:'/page/1',icon:IconNames.default},
+    ]
+    let namajshikkha = [
+        {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.default},
+        {title:'আজান',link:'/page/16',icon:IconNames.default},
+        {title:'ইকামাত',link:'/page/19',icon:IconNames.default}
+    ]
+    let pobitrotaItem = [
+        {title:'ওযুর নিয়ম',link:'/page/12',icon:IconNames.default},
+        {title:'ফরজ গোসল',link:'/page/17',icon:IconNames.default},
+        {title:'তায়াম্মুম',link:'/page/18',icon:IconNames.default}
     ]
     return(
         <ScrollView style={style.container}>
@@ -28,14 +35,47 @@ const Home = () => {
                 </View>
                 
             </ImageBackground>
-            <View style={style.grid}>
-                {
-                    items.map( (item,key) => {
-                        return(
-                            <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
-                        )
-                    })
-                }
+            <View style={{...style.gridWrapper, marginTop:-50}}>
+                <View style={style.grid}>
+                    {
+                        items.map( (item,key) => {
+                            return(
+                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                            )
+                        })
+                    }
+                </View>
+            </View>
+            <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={style.boxShadow}>
+                সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ
+            </RoundBox>
+            <View style={style.gridWrapper}>
+                <Text style={style.gridTitle}>নামাজ শিক্ষা</Text>
+                <View style={style.grid}>
+                    {
+                        namajshikkha.map( (item,key) => {
+                            return(
+                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                            )
+                        })
+                    }
+                </View>
+            </View>
+            <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow}} link='/page/2'>
+                ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় 
+                <Text style={{color:'#bd0606ff'}}> বিস্তারিত দেখুন</Text>
+            </RoundBox>            
+            <View style={style.gridWrapper}>
+                <Text style={style.gridTitle}>পবিত্রতা</Text>
+                <View style={style.grid}>
+                    {
+                        pobitrotaItem.map( (item,key) => {
+                            return(
+                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                            )
+                        })
+                    }
+                </View>
             </View>
             <View style={{padding:10, marginTop:10}}>
                 <BorderBox title="আজকের হাদিস" collapsable={false}>
@@ -47,9 +87,6 @@ const Home = () => {
                     <Text  style={style.text}> অনুবাদ ঃ আমি সাক্ষ্য দিতেছি যে , অল্লাহ ভিন্ন আর কেহই ইবাদতের উপযুক্ত নাই তিনি এক তাঁহার কোন অংশীদার নাই । আমি আরও সাক্ষ্য দিতেছি যে, হযরত মুহাম্মদ (সাল্লাহু আলাইহে ওয়া সাল্লাম) আল্লাহর শ্রেষ্ঠ বান্দা এবং তাঁহার প্রেরিত নবী ।</Text>
                 </BorderBox>
             </View>
-            <RoundBox title="পরিচ্ছেদঃ ৯৪. হিসাব ও শাস্তি ছাড়াই ">সাল্লাম বললেনঃ এ সুযোগ লাভে উক্কাশাহ তোমার অগ্রগামী হয়ে গেছে। (ইসলামিক ফাউন্ডেশনঃ ৪১৫, ইসলামিক সেন্টারঃ ৪২৯)</RoundBox>
-            <RoundBox title="পরিচ্ছেদঃ ৯৪. হিসাব ও শাস্তি ছাড়াই ">সাল্লাম বললেনঃ এ সুযোগ লাভে উক্কাশাহ তোমার অগ্রগামী হয়ে গেছে। (ইসলামিক ফাউন্ডেশনঃ ৪১৫, ইসলামিক সেন্টারঃ ৪২৯)</RoundBox>
-            
         </ScrollView>
     )
 }
@@ -77,23 +114,38 @@ const style = StyleSheet.create({
         borderBottomStartRadius:70,
 
     },
+    gridWrapper:{
+        backgroundColor:'#fff',
+        marginTop:5,
+        borderRadius:30,
+        marginHorizontal:10,
+        boxShadow:'0 0 10px rgba(0,0,0,.1)'
+    },
     grid:{
         flex:1,
         flexWrap:'wrap',
         flexDirection:'row',
         justifyContent:'space-between',
-        gap:10,
-        backgroundColor:'#fff',
-        padding:20,
-        marginTop:-30,
+        gap:5,
+        padding:5,
+    },
+    gridTitle:{
+        backgroundColor:'#02855eff',
+        color:'#fff',
+        fontSize:20,
+        paddingHorizontal:15,
+        paddingVertical:5,
+        width:'100%',
         borderRadius:30,
-        marginHorizontal:10,
-        boxShadow:'0 0 10px rgba(0,0,0,.1)'
+        textAlign:'center'
     },
     text:{
         fontSize:18,
         lineHeight:24,
         color:'#000',
         marginVertical:10
+    },
+    boxShadow:{
+        boxShadow:'0 4px 4px rgba(0,0,0,.5)',
     }
 });

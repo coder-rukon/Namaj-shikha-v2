@@ -10,13 +10,12 @@ class IconBox extends Component {
         let link = this.props.link;
         return (
             <Link href={link ? link : '/'} style={style.container}>
-                <View style={style.container}>
-                    <View>
+                <View style={{marginLeft:'auto',width:'100%',height:'100%', marginRight:'auto', alignItems:'center', justifyContent:'center'}}>
+                    <View style={{margin:0}}>
                         <View style={style.icon}>
                             <Image contentFit="cover" style={style.icon_symbol} source={this.props.icon ? this.props.icon : IconNames.default} />
                         </View>
                     </View>
-                    
                     <Text style={style.title}>{this.props.title}</Text>
                 </View>
             </Link>
@@ -27,9 +26,9 @@ class IconBox extends Component {
 export default IconBox;
 const style =  StyleSheet.create({
     container:{
-        width:110,
-        maxWidth:110,
-        justifyContent:'center',
+        width:120,
+        maxWidth:120,
+        justifyContent:'center'
         
     },
 
@@ -51,9 +50,10 @@ const style =  StyleSheet.create({
     },
     title:{
         fontSize:15,
+        lineHeight:22,
         fontWeight:600,
         color:'#46C7A0',
-        marginBottom:10,
-        textAlign:'center'
+        textAlign:'center',
+        margin:0,
     },
 })
