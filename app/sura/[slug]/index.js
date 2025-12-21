@@ -81,7 +81,7 @@ class Index extends Component {
                 <ScrollView>
                     {sura.audio_file && <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={sura.audio_file}/>}
                     <View style={style.container}>
-                        <SoraBox topTitle="আরবি" title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ">
+                        <SoraBox topTitle="আরবি" titleDirection="rtl" title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ">
                             {
                                 suraData.map( (soraWord,key) => {
                                     return(

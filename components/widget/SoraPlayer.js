@@ -4,6 +4,7 @@ import { Audio } from 'expo-av';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AudioFileHander from '../../constants/AudioFileHandler';
+import Helper from '../../constants/Helper';
 class SoraPlayer extends Component {
     constructor(props){
         super(props);
@@ -20,7 +21,7 @@ class SoraPlayer extends Component {
         this.fileHelper = new AudioFileHander(this.props.file);
     }
     async componentDidMount(){
-        let fileUri = await this.fileHelper.downloadFile('https://namajshikkha.aonedevs.com/files/');
+        let fileUri = await this.fileHelper.downloadFile(Helper.fileServerUrl);
         let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: false }, this.onPlayerReady.bind(this));
         this.audioPlayer= player.sound;
         if(this.props.onReady){

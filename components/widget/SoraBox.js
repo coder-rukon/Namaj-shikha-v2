@@ -7,7 +7,7 @@ class SoraBox extends Component {
             <View style={style.contaner}>
                 {this.props.topTitle ? <View style={style.topLabelwraper}><Text style={style.topLabel}>{this.props.topTitle}</Text></View> : null}
                 <View style={style.card}>
-                    {this.props.title ? <Text style={style.title}>{this.props.title}</Text> : null }
+                    {this.props.title ? <Text style={{...style.title, direction: this.props.titleDirection ? this.props.titleDirection : 'ltr'}}>{this.props.title}</Text> : null }
                     <Text style={style.content}>{this.props.children}</Text>
                 </View>
             </View>
