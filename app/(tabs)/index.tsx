@@ -3,6 +3,7 @@ import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import BorderBox from '../../components/widget/BorderBox';
+import Clock from '../../components/widget/Clock';
 import TitleRound from '../../components/widget/TitleRound';
 import IconNames from '../../constants/IconNames';
 const Home = () => {
@@ -24,18 +25,30 @@ const Home = () => {
         {title:'ফরজ গোসল',link:'/page/17',icon:IconNames.default},
         {title:'তায়াম্মুম',link:'/page/18',icon:IconNames.default}
     ]
+    let time = new Date();
+    let dateString = time.toLocaleDateString('bn-BD', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
     return(
         <ScrollView style={style.container}>
             <ImageBackground
                 style={style.topBg}
                 resizeMode="cover"
             >
-                <View style={style.topItems}>
+                <View style={style.top_minarWraper}>
+                    <Text style={style.clockWraper}>
+                        <Clock/>
+                        {`\n`}
+                        <Text>{dateString}</Text>
+                    </Text>
                     <Image contentFit="cover" style={style.top_minar} source={require('@/assets/images/hometopbg.png')} />
                 </View>
                 
             </ImageBackground>
-            <View style={{...style.gridWrapper, marginTop:-50}}>
+            <View style={{...style.gridWrapper, marginTop:-40}}>
                 <View style={style.grid}>
                     {
                         items.map( (item,key) => {
@@ -95,6 +108,12 @@ const style = StyleSheet.create({
     container:{
         backgroundColor:'#EFF6F3'
     },
+    
+    top_minarWraper:{
+        flex:1,
+        flexDirection:'column',
+        position:'relative',
+    },
     top_minar:{
         width:'100%',
         height:200,
@@ -102,9 +121,16 @@ const style = StyleSheet.create({
         borderBottomEndRadius:30,
         borderBottomStartRadius:30,
     },
-    topItems:{
-        flex:1,
-        flexDirection:'column'
+    clockWraper:{
+        fontSize:14,
+        position:'absolute',
+        left:0,
+        bottom:44,
+        color:'#fff',
+        zIndex:10,
+        width:'100%',
+        textAlign:'center',
+        fontWeight:'700'
     },
     topBg:{
         backgroundColor:"#59D8B2",
@@ -130,8 +156,8 @@ const style = StyleSheet.create({
         padding:5,
     },
     gridTitle:{
-        backgroundColor:'#02855eff',
-        color:'#fff',
+        backgroundColor:'#DFFAF3',
+        color:'#018860ff',
         fontSize:20,
         paddingHorizontal:15,
         paddingVertical:5,
