@@ -1,6 +1,7 @@
 import IconBox from '@/components/widget/IconBox';
 import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
+import { Link } from 'expo-router';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import BorderBox from '../../components/widget/BorderBox';
 import Clock from '../../components/widget/Clock';
@@ -85,7 +86,7 @@ const Home = () => {
                     }
                 </View>
             </View>
-             <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={{...style.boxShadow,marginBottom:0}} >
+             <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={{...style.boxShadow,marginBottom:0,backgroundColor:'#70078aff'}} >
                 সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
             </RoundBox>
             <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/2'>
@@ -95,12 +96,16 @@ const Home = () => {
                 <BorderBox title="আজকের হাদিস" collapsable={false}>
                     
                     <Text  style={style.text}> নু’আয়ম মুজমির (রহঃ) হতে বর্ণিতঃ</Text>
-                    <TitleRound><Text  style={{...style.text,fontSize:20,lineHeight:28,direction:'rtl'}}>حَدَّثَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ الْحَنْظَلِيُّ، قَالَ أَخْبَرَنَا عَبْدُ الرَّزَّاقِ، قَالَ أَخْبَرَنَا مَعْمَرٌ، عَنْ هَمَّامِ بْنِ مُنَبِّهٍ، أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ، يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ لاَ تُقْبَلُ صَلاَةُ مَنْ أَحْدَثَ حَتَّى يَتَوَضَّأَ ‏"‏‏.‏ قَالَ رَجُلٌ مِنْ حَضْرَمَوْتَ مَا الْحَدَثُ يَا أَبَا هُرَيْرَةَ قَالَ فُسَاءٌ أَوْ ضُرَاطٌ‏.‏</Text></TitleRound>
                     <TitleRound><Text  style={style.text}> আবূ হুরাইরা (রাঃ) হতে বর্ণিতঃ
 তিনি বলেনঃ আল্লাহ্‌র রসূল (সাল্লাল্লাহু ‘আলাইহি ওয়া সাল্লাম) বলেছেনঃ ‘যে ব্যক্তির হাদাস হয় তার সালাত কবুল হবে না, যতক্ষণ না সে উযূ করে। হাযরা-মাওতের জনৈক ব্যক্তি বলল, ‘হে আবূ হুরাইরা! হাদাস কী? হাদাস কী?’ তিনি বললেন, ‘নিঃশব্দে বা সশব্দে বায়ু বের হওয়া।’</Text></TitleRound>
-                    <Text  style={style.text}> অনুবাদ ঃ আমি সাক্ষ্য দিতেছি যে , অল্লাহ ভিন্ন আর কেহই ইবাদতের উপযুক্ত নাই তিনি এক তাঁহার কোন অংশীদার নাই । আমি আরও সাক্ষ্য দিতেছি যে, হযরত মুহাম্মদ (সাল্লাহু আলাইহে ওয়া সাল্লাম) আল্লাহর শ্রেষ্ঠ বান্দা এবং তাঁহার প্রেরিত নবী ।</Text>
                 </BorderBox>
             </View>
+            <ScrollView horizontal  showsHorizontalScrollIndicator={false} style={style.footerWraper}>
+                <Link style={style.footerMenuItem} href="/page/about-us">আমাদের সম্পর্কে</Link>
+                <Link style={style.footerMenuItem} href="/page/thanks">ধন্যবাদ ও ক্রেডিট</Link>
+                <Link style={style.footerMenuItem} href="https://wa.me/+8801733435951">রিপোর্ট করুন</Link>
+                <Link style={style.footerMenuItem} href="https://www.facebook.com/bdnamajshikkha">ফেসবুক গ্রুপ</Link>
+            </ScrollView>
         </ScrollView>
     )
 }
@@ -157,7 +162,7 @@ const style = StyleSheet.create({
         padding:5,
     },
     gridTitle:{
-        backgroundColor:'#DFFAF3',
+        backgroundColor:'#9bf7dfff',
         color:'#018860ff',
         fontSize:20,
         paddingHorizontal:15,
@@ -174,5 +179,27 @@ const style = StyleSheet.create({
     },
     boxShadow:{
         boxShadow:'0 2px 3px rgba(0,0,0,.5)',
+    },
+    footerWraper:{
+        flex:1,
+        flexDirection:'row',
+        paddingVertical:5,
+        paddingHorizontal:0,
+        backgroundColor:'#0a6500ff',
+        marginTop:10,
+        marginBottom:20,
+        marginHorizontal:10,
+        borderRadius:30,
+        boxShadow:'0 2px 3px rgba(0,0,0,.5)',
+        overflow:'scroll'
+    },
+    footerMenuItem:{
+        backgroundColor:'#fff',
+        padding:8,
+        borderRadius:20,
+        color:'#0a6500ff',
+        fontWeight:'700',
+        fontSize:14,
+        marginHorizontal:5,
     }
 });

@@ -43,6 +43,7 @@ class BorderBox extends Component {
         })
     }
     getFooter(){
+        if(this.props.hideFooter) return null;
         if(this.state.takingSs){
             return(
                 <View style={style.footer} collapsable={false}>
@@ -64,6 +65,7 @@ class BorderBox extends Component {
         )
     }
     render() {
+        
         let titleWraperStyle = style.titleWraper;
         if(this.props.titleRight){
             titleWraperStyle ={
