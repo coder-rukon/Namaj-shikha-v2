@@ -3,12 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 
 class SoraBox extends Component {
     render() {
+        let contentStyle = style.content;
+        if(this.props.contentStyle){
+            contentStyle = {...contentStyle, ...this.props.contentStyle}
+        }
         return (
             <View style={style.contaner}>
                 {this.props.topTitle ? <View style={style.topLabelwraper}><Text style={style.topLabel}>{this.props.topTitle}</Text></View> : null}
                 <View style={style.card}>
                     {this.props.title ? <Text style={{...style.title, direction: this.props.titleDirection ? this.props.titleDirection : 'ltr'}}>{this.props.title}</Text> : null }
-                    <Text style={style.content}>{this.props.children}</Text>
+                    <Text style={contentStyle}>{this.props.children}</Text>
                 </View>
             </View>
         );

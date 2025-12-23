@@ -19,7 +19,7 @@ export const initDatabase = async () => {
     await db.execAsync(`
         PRAGMA journal_mode = WAL;
         CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, admin_name TEXT, icon TEXT, menu_items TEXT NOT NULL );
-        CREATE TABLE IF NOT EXISTS app_content (id INTEGER PRIMARY KEY NOT NULL,name TEXT NOT NULL, content_type TEXT, name_ar TEXT, name_eng TEXT ,  audio_file TEXT ,  data TEXT , desctiption TEXT );
+        CREATE TABLE IF NOT EXISTS app_content (id INTEGER PRIMARY KEY NOT NULL,name TEXT NOT NULL, content_type TEXT, tags TEXT, name_ar TEXT, name_eng TEXT ,  audio_file TEXT ,  data TEXT , desctiption TEXT );
         CREATE TABLE IF NOT EXISTS page (id INTEGER PRIMARY KEY NOT NULL, category INTEGER, name TEXT NOT NULL, contents TEXT, meta TEXT);
         `);
 
@@ -39,12 +39,13 @@ export const clearTables =async (menuItem) => {
 }
 export const insertAppContentItem =async (content) => {
   await db.runAsync(
-    `INSERT INTO app_content (id, name, content_type, name_ar, name_eng, audio_file, data, desctiption)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO app_content (id, name, content_type, tags, name_ar, name_eng, audio_file, data, desctiption)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       content.id,
       content.name,
       content.content_type,
+      content.tags ?? null,
       content.name_ar ?? null,
       content.name_eng ?? null,
       content.audio_file ?? null,
