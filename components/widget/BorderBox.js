@@ -79,7 +79,7 @@ class BorderBox extends Component {
         return (
             <View style={style.container} ref={this.containerView} collapsable={false}>
                 <View style={titleWraperStyle} collapsable={false}>
-                    <Text style={style.titleText}>{this.props.title}</Text>
+                    {this.props.title ? <Text style={style.titleText}>{this.props.title}</Text> : null}
                     {this.props.titleRight ? <Text style={style.titleTextRight}>{this.props.titleRight}</Text> : null }
                 </View>
                 <View style={style.contents} collapsable={false}>

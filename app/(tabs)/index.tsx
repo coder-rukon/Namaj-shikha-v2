@@ -3,9 +3,8 @@ import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
-import BorderBox from '../../components/widget/BorderBox';
+import RandomHadis from '../../components/hadis/RandomHadis';
 import Clock from '../../components/widget/Clock';
-import TitleRound from '../../components/widget/TitleRound';
 import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
@@ -28,11 +27,11 @@ const Home = () => {
     ]
     let time = new Date();
     let dateString = time.toLocaleDateString('bn-BD', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    })
     return(
         <ScrollView style={style.container}>
             <ImageBackground
@@ -92,14 +91,7 @@ const Home = () => {
             <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/2'>
                 ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় ....
             </RoundBox>  
-            <View style={{padding:10, marginTop:10}}>
-                <BorderBox title="আজকের হাদিস" collapsable={false}>
-                    
-                    <Text  style={style.text}> নু’আয়ম মুজমির (রহঃ) হতে বর্ণিতঃ</Text>
-                    <TitleRound><Text  style={style.text}> আবূ হুরাইরা (রাঃ) হতে বর্ণিতঃ
-তিনি বলেনঃ আল্লাহ্‌র রসূল (সাল্লাল্লাহু ‘আলাইহি ওয়া সাল্লাম) বলেছেনঃ ‘যে ব্যক্তির হাদাস হয় তার সালাত কবুল হবে না, যতক্ষণ না সে উযূ করে। হাযরা-মাওতের জনৈক ব্যক্তি বলল, ‘হে আবূ হুরাইরা! হাদাস কী? হাদাস কী?’ তিনি বললেন, ‘নিঃশব্দে বা সশব্দে বায়ু বের হওয়া।’</Text></TitleRound>
-                </BorderBox>
-            </View>
+            <RandomHadis/>
             <ScrollView horizontal  showsHorizontalScrollIndicator={false} style={style.footerWraper}>
                 <Link style={style.footerMenuItem} href="/page/about-us">আমাদের সম্পর্কে</Link>
                 <Link style={style.footerMenuItem} href="/page/thanks">ধন্যবাদ ও ক্রেডিট</Link>
