@@ -56,6 +56,7 @@ const style = StyleSheet.create({
     subtitle:{
         fontSize:14,
         color:'#656565ff',
-        fontWeight:400
+        fontWeight:400,
+        maxWidth:'96%'
     }
 })

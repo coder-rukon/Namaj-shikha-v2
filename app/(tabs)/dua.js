@@ -37,17 +37,17 @@ class DuaPage extends Component {
                 <AppHeader title="দোয়া"/>
                 <ScrollView>
                     <View style={style.container}>
-                        <Text style={style.title}><Text style={style.border}> </Text> সকাল সন্ধ্যা দুয়া </Text>
+                        <Text style={style.title}><Text style={style.border}> </Text> দৈনন্দিন দোয়া </Text>
                         <View style={{gap:10, flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between'}}>
                                 <View style={{width:'50%'}}>
                                     <ImageBox title="আয়াতুল কুরসি" link="/dua/11" subtitle="বাংলা অর্থ, অডিও ও উচ্চারন" image={require('@/assets/images/dua.png')}/>
                                     <ImageBox title="গুরুত্বপূর্ণ দোয়া" link="/menu/14" subtitle="সুন্দর ও গুরুত্বপূর্ণ কিছু ছোট দোয়া" image={require('@/assets/images/dua.png')} boxStyle={{backgroundColor:"#f2ffa7ff",borderColor:"#f2ffa7ff"}}/>
                                 </View>
                                 <View style={{width:'45%'}}>
-                                    <ImageBox title="রাব্বানা দুয়া" link="/menu/13" imageTop={true} subtitle="কুরআনে বর্ণিত আল্লাহর শেখানো দোয়াসমূহ" image={require('@/assets/images/dua.png')} boxStyle={{backgroundColor:"#e1b8ffff",borderColor:"#8629ff86"}}/>
+                                    <ImageBox title="রাব্বানা দোয়া" link="/menu/13" imageTop={true} subtitle="কুরআনে বর্ণিত আল্লাহর শেখানো দোয়াসমূহ" image={require('@/assets/images/dua.png')} boxStyle={{backgroundColor:"#e1b8ffff",borderColor:"#8629ff86"}}/>
                                 </View>
                         </View>
-                        <Text style={style.title}><Text style={style.border}> </Text> নামাজের দুয়া </Text>
+                        <Text style={style.title}><Text style={style.border}> </Text> নামাজের দোয়া </Text>
                         <ImageBox title="নামাজের গুরুত্বপূর্ণ দোয়া" link="/menu/12" subtitle="মসজিদে প্রবেশের দোয়া থেকে শুরু করে  নামাজের সকল প্রয়োজনীয় দোয়া ও আমল" image={require('@/assets/images/dua.png')} boxStyle={{backgroundColor:"#edaa58ff",borderColor:"#ef840299",padding:15}}/>
                         <Text style={style.title}><Text style={style.border}> </Text> দোয়া কুনুত </Text>
                         <View style={{gap:10, flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between'}}>

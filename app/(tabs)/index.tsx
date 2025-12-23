@@ -11,17 +11,17 @@ const Home = () => {
         {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
         {title:'দোয়া',link:'/dua',icon:IconNames.dua},
         {title:'হাদিস',link:'/menu/7',icon:IconNames.default},
-        {title:'যাকাত',link:'/menu/7',icon:IconNames.default},
+        {title:'যাকাত',link:'/page/20',icon:IconNames.default},
         {title:'আল্লাহর নাম',link:'/page/allah-name',icon:IconNames.default},
         {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
-        {title:'যিকির',link:'/page/1',icon:IconNames.default},
-        {title:'হজ্ব',link:'/page/1',icon:IconNames.default},
+        {title:'যিকির',link:'/menu/16',icon:IconNames.default},
+        {title:'হজ',link:'/menu/17',icon:IconNames.default},
     ]
     let namajshikkha = [
         {title:'নামাজের গুরুত্ব',link:'/menu/6',icon:IconNames.default},
         {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.default},
-        {title:'নামাজের দোয়া',link:'/page/16',icon:IconNames.default},
-        {title:'নামাজের সূরা',link:'/page/16',icon:IconNames.default},
+        {title:'নামাজের দোয়া',link:'/menu/12',icon:IconNames.default},
+        {title:'নামাজের সূরা',link:'/menu/18',icon:IconNames.default},
         {title:'আজান',link:'/page/16',icon:IconNames.default},
         {title:'ইকামাত',link:'/page/19',icon:IconNames.default}
     ]

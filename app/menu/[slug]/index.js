@@ -52,6 +52,7 @@ class Index extends Component {
                                     name:item.name,
                                     icon:item.icon,
                                     link:item.link ? item.link : '/',
+                                    subtitle:item.subtitle ? item.subtitle : null
                                 }
                                 return(
                                     <ListItem key={key} item={itemValue}/>
