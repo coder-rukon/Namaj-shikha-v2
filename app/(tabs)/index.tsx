@@ -98,6 +98,7 @@ const Home = () => {
                 <Link style={style.footerMenuItem} href="/page/thanks">ধন্যবাদ ও ক্রেডিট</Link>
                 <Link style={style.footerMenuItem} href="https://wa.me/+8801733435951">যোগাযোগ করুন</Link>
             </View>
+            <Image contentFit="cover" style={style.footer_image} source={require('@/assets/images/hometopbg.png')} />
         </ScrollView>
     )
 }
@@ -105,6 +106,15 @@ export default Home;
 const style = StyleSheet.create({
     container:{
         backgroundColor:'#EFF6F3'
+    },
+    footer_image:{
+        width:'100%',
+        height:150,
+        opacity:0.5,
+        position:'absolute',
+        bottom:0,
+        left:0,
+        zIndex:-1
     },
     
     top_minarWraper:{
