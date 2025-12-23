@@ -36,7 +36,6 @@ class RandomHadis extends Component {
         return (
             <View style={{padding:10, marginTop:10}}>
                 <BorderBox title="আজকের হাদিস" collapsable={false}>
-                    
                     {hadis.name && hadis.name != 'na' ? <Text  style={style.text}>{hadis.name}</Text> : null}
                     <TitleRound><Text  style={style.text}>{hadis.desctiption}</Text></TitleRound>
                 </BorderBox>
@@ -110,8 +109,7 @@ const style = StyleSheet.create({
     text:{
         fontSize:18,
         lineHeight:24,
-        color:'#000',
-        marginVertical:10
+        color:'#000'
     },
     boxShadow:{
         boxShadow:'0 2px 3px rgba(0,0,0,.5)',

@@ -9,6 +9,7 @@ import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
         {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
+        {title:'Dua',link:'/dua',icon:IconNames.dua},
         {title:'দোয়া',link:'/menu/9',icon:IconNames.dua},
         {title:'হাদিস',link:'/menu/7',icon:IconNames.default},
         {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name',icon:IconNames.default},
@@ -92,12 +93,11 @@ const Home = () => {
                 ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় ....
             </RoundBox>  
             <RandomHadis/>
-            <ScrollView horizontal  showsHorizontalScrollIndicator={false} style={style.footerWraper}>
+            <View style={style.footerWraper}>
                 <Link style={style.footerMenuItem} href="/page/about-us">আমাদের সম্পর্কে</Link>
                 <Link style={style.footerMenuItem} href="/page/thanks">ধন্যবাদ ও ক্রেডিট</Link>
-                <Link style={style.footerMenuItem} href="https://wa.me/+8801733435951">রিপোর্ট করুন</Link>
-                <Link style={style.footerMenuItem} href="https://www.facebook.com/bdnamajshikkha">ফেসবুক গ্রুপ</Link>
-            </ScrollView>
+                <Link style={style.footerMenuItem} href="https://wa.me/+8801733435951">যোগাযোগ করুন</Link>
+            </View>
         </ScrollView>
     )
 }
@@ -183,15 +183,16 @@ const style = StyleSheet.create({
         marginHorizontal:10,
         borderRadius:30,
         boxShadow:'0 2px 3px rgba(0,0,0,.5)',
-        overflow:'scroll'
+        alignItems:'center',
+        justifyContent:'center',
     },
     footerMenuItem:{
         backgroundColor:'#fff',
-        padding:8,
+        padding:7,
         borderRadius:20,
         color:'#0a6500ff',
         fontWeight:'700',
-        fontSize:14,
-        marginHorizontal:5,
+        fontSize:13,
+        marginHorizontal:3,
     }
 });

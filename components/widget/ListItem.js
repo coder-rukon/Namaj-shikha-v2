@@ -6,14 +6,20 @@ import IconNames from '../../constants/IconNames';
 
 class ListItem extends Component {
     render() {
-        let {name,link,icon} = this.props.item;
+        let {name,link,icon,image,subtitle} = this.props.item;
         let iconName = icon ? IconNames[icon] : IconNames.default;
+        if(image){
+            iconName = image;
+        }
         return (
             <View style={style.container}>
                 <Link href={link} >
                     <View style={style.list_item}>
                         <Image contentFit="cover" style={style.icon} source={iconName} />
-                        <Text style={style.title}>{name}</Text>
+                        <View>
+                            <Text style={style.title}>{name}</Text>
+                            {subtitle ? <Text style={style.subtitle}>{subtitle}</Text> : null}
+                        </View>
                     </View>
                 </Link>
             </View>
@@ -28,7 +34,7 @@ const style = StyleSheet.create({
         backgroundColor:'#fff',
         borderColor:'#fff',
         marginVertical:2,
-        padding:10,
+        padding:8,
         borderRadius:10,
         verticalAlign:'center'
     },
@@ -46,5 +52,10 @@ const style = StyleSheet.create({
         fontSize:20,
         color:'#000',
         fontWeight:500
+    },
+    subtitle:{
+        fontSize:14,
+        color:'#656565ff',
+        fontWeight:400
     }
 })
