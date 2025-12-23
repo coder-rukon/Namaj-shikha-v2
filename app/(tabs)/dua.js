@@ -1,4 +1,5 @@
 import AppHeader from '@/components/header/AppHeader';
+import { db } from "@/database/db";
 import { Component } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import ImageBox from '../../components/widget/ImageBox';
@@ -7,15 +8,26 @@ class DuaPage extends Component {
     constructor(props){
         super(props),
         this.state = {
+            otherDuaList:[]
         }
-        this.audioPlayer = null;
     }
-    componentDidMount() {
-        
+    async componentDidMount() {
+        await this.getMenuData()
     }
-    
+    async getMenuData(){
+        let menu_id =15;
+        try {
+        //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
+            const menu = await db.getFirstAsync('SELECT * FROM menu where id = '+menu_id);
+            this.setState({
+                otherDuaList:menu ? JSON.parse(menu.menu_items) : [],
+            })
+        } catch (error) {
+            console.log('Error fetching tables:', error);
+        }
+    }
     render() {
-        let allDua = [{},{},{}];
+        let allDua = this.state.otherDuaList;
         return (
             <ImageBackground
                 style={style.background}
@@ -80,7 +92,7 @@ const style = StyleSheet.create({
     container:{
         padding:10,
         borderRadius:20,
-        backgroundColor: '#438245e0', // overlay color
+        backgroundColor: '#018f6994', // overlay color
     },
 
     border:{

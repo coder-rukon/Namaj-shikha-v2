@@ -11,13 +11,12 @@ class RandomHadis extends Component {
         }
     }
     componentDidMount() {
-        this.loadHadis();
+       this.loadHadis();
     }
     async loadHadis(){
         try {
         //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
-            const dbData = await db.getFirstAsync('SELECT * FROM app_content where content_type = ? ORDER BY RANDOM()', '82');
-            let hadis = dbData;
+            const hadis = await db.getFirstAsync('SELECT * FROM app_content where content_type = ? ORDER BY RANDOM() LIMIT 1', '82');
             if(hadis){
                 hadis.data = JSON.parse(hadis.data); 
             }

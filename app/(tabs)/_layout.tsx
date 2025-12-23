@@ -35,11 +35,21 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="dua"
+        
+        options={{
+          title: 'দোয়া',
+          tabBarButton: (props) => (
+            <FooterMenuItem {...props} title='দোয়া' link="/dua" icon="hands-pray"/>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="sura"
         options={{
           title: 'সূরা',
           tabBarButton: (props) => (
-            <FooterMenuItem {...props} title='সূরা' link="/menu/8" icon="format-list-bulleted"/>
+            <FooterMenuItem {...props} title='সূরা' link="/menu/8" icon="book-open-page-variant-outline"/>
           ),
         }}
       />
