@@ -8,15 +8,42 @@ import { StyleSheet, Text, View } from 'react-native';
 class IconBox extends Component {
     render() {
         let link = this.props.link;
+        let size = this.props.size ? this.props.size : 'default';
+        let conatainerStyle = style.container;
+        let iconStyle = style.icon;
+        let icon_symbolStyle = style.icon_symbol;
+        let titleStyle = style.title;
+
+        if(size=='sm'){
+            conatainerStyle = {
+                ...conatainerStyle,
+                width:90,
+                maxWidth:90,
+            }
+            iconStyle = {
+                ...iconStyle,
+                width:80,
+                height:80,
+                borderRadius:15,
+                padding:3,
+            }
+            icon_symbolStyle = {
+                ...icon_symbolStyle,
+                width:55,
+                height:55,
+            }
+           
+            
+        }
         return (
-            <Link href={link ? link : '/'} style={style.container}>
+            <Link href={link ? link : '/'} style={conatainerStyle}>
                 <View style={{marginLeft:'auto',width:'100%',height:'100%', marginRight:'auto', alignItems:'center', justifyContent:'center'}}>
                     <View style={{margin:0}}>
-                        <View style={style.icon}>
-                            <Image contentFit="cover" style={style.icon_symbol} source={this.props.icon ? this.props.icon : IconNames.default} />
+                        <View style={iconStyle}>
+                            <Image contentFit="cover" style={icon_symbolStyle} source={this.props.icon ? this.props.icon : IconNames.default} />
                         </View>
                     </View>
-                    <Text style={style.title}>{this.props.title}</Text>
+                    <Text style={titleStyle}>{this.props.title}</Text>
                 </View>
             </Link>
         );
@@ -28,8 +55,7 @@ const style =  StyleSheet.create({
     container:{
         width:120,
         maxWidth:120,
-        justifyContent:'center'
-        
+        justifyContent:'center',
     },
 
     icon:{

@@ -9,15 +9,19 @@ import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
         {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
-        {title:'Dua',link:'/dua',icon:IconNames.dua},
-        {title:'দোয়া',link:'/menu/9',icon:IconNames.dua},
+        {title:'দোয়া',link:'/dua',icon:IconNames.dua},
         {title:'হাদিস',link:'/menu/7',icon:IconNames.default},
-        {title:'আল্লাহর ৯৯টি নাম',link:'/page/allah-name',icon:IconNames.default},
+        {title:'যাকাত',link:'/menu/7',icon:IconNames.default},
+        {title:'আল্লাহর নাম',link:'/page/allah-name',icon:IconNames.default},
         {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
         {title:'যিকির',link:'/page/1',icon:IconNames.default},
+        {title:'হজ্ব',link:'/page/1',icon:IconNames.default},
     ]
     let namajshikkha = [
+        {title:'নামাজের গুরুত্ব',link:'/menu/6',icon:IconNames.default},
         {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.default},
+        {title:'নামাজের দোয়া',link:'/page/16',icon:IconNames.default},
+        {title:'নামাজের সূরা',link:'/page/16',icon:IconNames.default},
         {title:'আজান',link:'/page/16',icon:IconNames.default},
         {title:'ইকামাত',link:'/page/19',icon:IconNames.default}
     ]
@@ -54,7 +58,7 @@ const Home = () => {
                     {
                         items.map( (item,key) => {
                             return(
-                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                                <IconBox size="sm" title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
                             )
                         })
                     }
@@ -86,12 +90,23 @@ const Home = () => {
                     }
                 </View>
             </View>
-             <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={{...style.boxShadow,marginBottom:0,backgroundColor:'#70078aff'}} >
-                সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
-            </RoundBox>
+            
+            
             <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/2'>
                 ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় ....
-            </RoundBox>  
+            </RoundBox>
+            <View style={{gap:5, flexDirection:'row', flexWrap:'wrap', justifyContent:'center'}}>
+                    <View style={{width:'49%'}}>
+                        <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={{...style.boxShadow,marginBottom:0,backgroundColor:'#70078aff'}} >
+                            সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
+                        </RoundBox>
+                    </View>
+                    <View style={{width:'49%'}}>
+                        <RoundBox title="মসজিদের আদব" link='/page/2' style={{...style.boxShadow,marginBottom:0,backgroundColor:'#0973f4ff'}} >
+                            সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
+                        </RoundBox>
+                    </View>
+            </View>
             <RandomHadis/>
             <View style={style.footerWraper}>
                 <Link style={style.footerMenuItem} href="/page/about-us">আমাদের সম্পর্কে</Link>
