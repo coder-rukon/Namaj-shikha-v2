@@ -11,12 +11,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
   title: string;
+  containerStyle?: object;
 };
-export default function AppHeader({ title }: Props) {
+export default function AppHeader({ title, containerStyle }: Props) {
   const navigation = useNavigation();
   let rightText = 'বাংলা নামাজ শিক্ষা';
+  let safeStyle = styles.safe;
+  if (containerStyle) {
+    safeStyle = { ...safeStyle, ...containerStyle };
+  }
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView edges={['top']} style={safeStyle}>
       <View style={styles.container}>
         <View style={styles.leftArea}>
           <TouchableOpacity
@@ -31,6 +36,7 @@ export default function AppHeader({ title }: Props) {
           <Text style={styles.titleRight}>বাংলা নামাজ শিক্ষা</Text>
         </View>
       </View>
+      
     </SafeAreaView>
   );
 }

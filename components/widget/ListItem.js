@@ -16,7 +16,7 @@ class ListItem extends Component {
                 <Link href={link} >
                     <View style={style.list_item}>
                         <Image contentFit="cover" style={style.icon} source={iconName} />
-                        <View>
+                        <View flex={1}>
                             <Text style={style.title}>{name}</Text>
                             {subtitle ? <Text style={style.subtitle}>{subtitle}</Text> : null}
                         </View>
@@ -56,7 +56,6 @@ const style = StyleSheet.create({
     subtitle:{
         fontSize:14,
         color:'#656565ff',
-        fontWeight:400,
-        maxWidth:'96%'
+        fontWeight:400
     }
 })
