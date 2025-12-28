@@ -8,22 +8,22 @@ import Clock from '../../components/widget/Clock';
 import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
-        {title:'সূরা',link:'/menu/8',icon:IconNames.sura},
+        {title:'সূরা',link:'/menu/8',icon:IconNames.quran},
         {title:'দোয়া',link:'/dua',icon:IconNames.dua},
-        {title:'হাদিস',link:'/menu/7',icon:IconNames.default},
-        {title:'যাকাত',link:'/page/20',icon:IconNames.default},
-        {title:'আল্লাহর নাম',link:'/page/allah-name',icon:IconNames.default},
-        {title:'কালিমা',link:'/page/kalima',icon:IconNames.default},
-        {title:'যিকির',link:'/menu/16',icon:IconNames.default},
-        {title:'হজ',link:'/menu/17',icon:IconNames.default},
+        {title:'যিকির',link:'/menu/16',icon:IconNames.tajbe},
+        {title:'হজ',link:'/menu/17',icon:IconNames.haj},
+        {title:'যাকাত',link:'/page/20',icon:IconNames.jakat},
+        {title:'আল্লাহর নাম',link:'/page/allah-name',icon:IconNames.allah_name},
+        {title:'হাদিস',link:'/menu/7',icon:IconNames.hadis},
+        {title:'কালিমা',link:'/page/kalima',icon:IconNames.default}
     ]
     let namajshikkha = [
         {title:'নামাজের গুরুত্ব',link:'/menu/6',icon:IconNames.default},
-        {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.default},
-        {title:'নামাজের দোয়া',link:'/menu/12',icon:IconNames.default},
-        {title:'নামাজের সূরা',link:'/menu/18',icon:IconNames.default},
-        {title:'আজান',link:'/page/16',icon:IconNames.default},
-        {title:'ইকামাত',link:'/page/19',icon:IconNames.default}
+        {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.list},
+        {title:'নামাজের দোয়া',link:'/menu/12',icon:IconNames.dua},
+        {title:'নামাজের সূরা',link:'/menu/18',icon:IconNames.quran},
+        {title:'মসজিদের আদব',link:'/page/16',icon:IconNames.handSheekh},
+        {title:'আজান/ইকামাত',link:'/page/19',icon:IconNames.ajan}
     ]
     let pobitrotaItem = [
         {title:'ওযুর নিয়ম',link:'/page/12',icon:IconNames.default},
