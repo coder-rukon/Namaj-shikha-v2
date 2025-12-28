@@ -8,27 +8,27 @@ import Clock from '../../components/widget/Clock';
 import IconNames from '../../constants/IconNames';
 const Home = () => {
     let items = [
-        {title:'সূরা',link:'/menu/8',icon:IconNames.quran},
-        {title:'দোয়া',link:'/dua',icon:IconNames.dua},
-        {title:'যিকির',link:'/menu/16',icon:IconNames.tajbe},
-        {title:'হজ',link:'/menu/17',icon:IconNames.haj},
-        {title:'যাকাত',link:'/page/20',icon:IconNames.jakat},
-        {title:'আল্লাহর নাম',link:'/page/allah-name',icon:IconNames.allah_name},
-        {title:'হাদিস',link:'/menu/7',icon:IconNames.hadis},
-        {title:'কালিমা',link:'/page/kalima',icon:IconNames.default}
+        {title:'সূরা',link:'/menu/8',iconName:null,icon:IconNames.quran},
+        {title:'দোয়া',link:'/dua',iconName:null,icon:IconNames.dua},
+        {title:'যিকির',link:'/menu/16',iconName:null,icon:IconNames.tajbe},
+        {title:'হজ',link:'/menu/17',iconName:null,icon:IconNames.haj},
+        {title:'যাকাত',link:'/page/20',iconName:null,icon:IconNames.jakat},
+        {title:'আল্লাহর নাম',link:'/page/allah-name',iconName:null,icon:IconNames.allah_name},
+        {title:'হাদিস',link:'/menu/7',iconName:null,icon:IconNames.hadis},
+        {title:'কালিমা',link:'/page/kalima',iconName:null,icon:IconNames.default}
     ]
     let namajshikkha = [
-        {title:'নামাজের গুরুত্ব',link:'/menu/6',icon:IconNames.default},
-        {title:'নামাজের নিয়ম',link:'/menu/6',icon:IconNames.list},
-        {title:'নামাজের দোয়া',link:'/menu/12',icon:IconNames.dua},
-        {title:'নামাজের সূরা',link:'/menu/18',icon:IconNames.quran},
-        {title:'মসজিদের আদব',link:'/page/16',icon:IconNames.handSheekh},
-        {title:'আজান/ইকামাত',link:'/page/19',icon:IconNames.ajan}
+        {title:'নামাজের গুরুত্ব',link:'/page/2',iconName:'information-outline',icon:null},
+        {title:'নামাজের নিয়ম',link:'/menu/6',iconName:'format-list-text',icon:null},
+        {title:'নামাজের দোয়া',link:'/menu/12',iconName:null,icon:IconNames.dua},
+        {title:'নামাজের সূরা',link:'/menu/18',iconName:null,icon:IconNames.quran},
+        {title:'মসজিদের আদব',link:'/page/22',iconName:null,icon:IconNames.handSheekh},
+        {title:'আজান/ইকামাত',link:'/menu/19',iconName:null,icon:IconNames.ajan}
     ]
     let pobitrotaItem = [
-        {title:'ওযুর নিয়ম',link:'/page/12',icon:IconNames.default},
-        {title:'ফরজ গোসল',link:'/page/17',icon:IconNames.default},
-        {title:'তায়াম্মুম',link:'/page/18',icon:IconNames.default}
+        {title:'ওযু',link:'/menu/20',iconName:'hand-wash-outline',icon:null},
+        {title:'ফরজ গোসল',link:'/page/17',iconName:'shower-head',icon:null},
+        {title:'তায়াম্মুম',link:'/page/18',iconName:'hand-wash',icon:null}
     ]
     let time = new Date();
     let dateString = time.toLocaleDateString('bn-BD', {
@@ -58,7 +58,7 @@ const Home = () => {
                     {
                         items.map( (item,key) => {
                             return(
-                                <IconBox size="sm" title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                                <IconBox size="sm" title={item.title ? item.title : ''} link={item?.link} icon={item.icon} iconName={item.iconName} key={key}/>
                             )
                         })
                     }
@@ -71,7 +71,7 @@ const Home = () => {
                     {
                         namajshikkha.map( (item,key) => {
                             return(
-                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} iconName={item.iconName} key={key}/>
                             )
                         })
                     }
@@ -84,7 +84,7 @@ const Home = () => {
                     {
                         pobitrotaItem.map( (item,key) => {
                             return(
-                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} key={key}/>
+                                <IconBox title={item.title ? item.title : ''} link={item?.link} icon={item.icon} iconName={item.iconName} key={key}/>
                             )
                         })
                     }

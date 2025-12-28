@@ -1,9 +1,9 @@
 import IconNames from '@/constants/IconNames';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 
 class IconBox extends Component {
     render() {
@@ -40,7 +40,13 @@ class IconBox extends Component {
                 <View style={{marginLeft:'auto',width:'100%',height:'100%', marginRight:'auto', alignItems:'center', justifyContent:'center'}}>
                     <View style={{margin:0}}>
                         <View style={iconStyle}>
-                            <Image contentFit="cover" style={icon_symbolStyle} source={this.props.icon ? this.props.icon : IconNames.default} />
+                            {
+                                this.props.iconName ? <MaterialCommunityIcons name={this.props.iconName} size={50} color="#009e7b" /> : null
+                            }
+                            {
+                                this.props.icon ? <Image contentFit="cover" style={icon_symbolStyle} source={this.props.icon ? this.props.icon : IconNames.default} /> : null
+                            }
+                            
                         </View>
                     </View>
                     <Text style={titleStyle}>{this.props.title}</Text>
