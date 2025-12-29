@@ -95,18 +95,6 @@ const Home = () => {
             <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/36'>
                 ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় ....
             </RoundBox>
-            <View style={{gap:5, flexDirection:'row', flexWrap:'wrap', justifyContent:'center'}}>
-                    <View style={{width:'49%'}}>
-                        <RoundBox title="ইসলামে সালাতের গুরুত্ব ও ফযীলত" link='/page/2' style={{...style.boxShadow,marginBottom:0,backgroundColor:'#70078aff'}} >
-                            সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
-                        </RoundBox>
-                    </View>
-                    <View style={{width:'49%'}}>
-                        <RoundBox title="মসজিদের আদব" link='/page/2' style={{...style.boxShadow,marginBottom:0,backgroundColor:'#0973f4ff'}} >
-                            সালাত ফরজ হওয়ার শর্ত ও গুরুত্ব সমূহ ....
-                        </RoundBox>
-                    </View>
-            </View>
             <RandomHadis/>
             <View style={style.footerWraper}>
                 <Link style={style.footerMenuItem} href="/page/about-us">আমাদের সম্পর্কে</Link>
