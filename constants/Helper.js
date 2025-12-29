@@ -1,5 +1,5 @@
 const Helper = {
-    apiUrl:'http://192.168.0.200:8000/api',
+    apiUrl:'https://namajshikkha.aonedevs.com/api',
     fileServerUrl: 'https://namajshikkha.aonedevs.com/files/',
 }
 export default Helper;

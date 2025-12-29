@@ -92,7 +92,7 @@ const Home = () => {
             </View>
             
             
-            <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/2'>
+            <RoundBox title="ফরজ সালাত শেষে আমল সমূহ" style={{...style.boxShadow,marginBottom:0}} link='/page/36'>
                 ফরজ সালাত শেষ করে রাসূল (সা.)-এর আমলসমূহ যা প্রতিটি মুসলিমের জন্য অনুসরণীয় ....
             </RoundBox>
             <View style={{gap:5, flexDirection:'row', flexWrap:'wrap', justifyContent:'center'}}>

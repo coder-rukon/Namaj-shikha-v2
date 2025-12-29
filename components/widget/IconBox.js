@@ -17,8 +17,8 @@ class IconBox extends Component {
         if(size=='sm'){
             conatainerStyle = {
                 ...conatainerStyle,
-                width:90,
-                maxWidth:90,
+                width:85,
+                maxWidth:85,
             }
             iconStyle = {
                 ...iconStyle,
@@ -59,8 +59,8 @@ class IconBox extends Component {
 export default IconBox;
 const style =  StyleSheet.create({
     container:{
-        width:120,
-        maxWidth:120,
+        width:115,
+        maxWidth:115,
         justifyContent:'center',
     },
 
