@@ -72,6 +72,12 @@ class Index extends Component {
         let sura = this.state.sura;
         let suraData = sura.data ? sura.data : [];
         let audioCurrentTime = this.state.audioCurrentTime;
+        let isArabicExist = false;
+        suraData.forEach( word => {
+            if(word.ar && word.ar.length >0){
+                isArabicExist = true;
+            }
+        });
         return (
             <ImageBackground
                 style={style.background}
@@ -83,6 +89,7 @@ class Index extends Component {
                     {sura.audio_file && <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={sura.audio_file}/>}
                     <View style={style.container}>
                         <BorderBox title={sura.name} >
+                            { isArabicExist  ? 
                             <SoraBox topTitle="আরবি" titleDirection="rtl" contentStyle={{padding:0, backgroundColor:'transparent'}} >
                                 {
                                     suraData.map( (soraWord,key) => {
@@ -92,6 +99,8 @@ class Index extends Component {
                                     })
                                 }
                             </SoraBox>
+                            : null
+                            }
                             <SoraBox topTitle="উচ্চারন" contentStyle={{padding:0, backgroundColor:'transparent'}}>
                                 {
                                     suraData.map( (soraWord,key) => {

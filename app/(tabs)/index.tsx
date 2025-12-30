@@ -10,7 +10,7 @@ const Home = () => {
     let items = [
         {title:'সূরা',link:'/menu/8',iconName:null,icon:IconNames.quran},
         {title:'দোয়া',link:'/dua',iconName:null,icon:IconNames.dua},
-        {title:'যিকির',link:'/menu/16',iconName:null,icon:IconNames.tajbe},
+        {title:'যিকির/দুরূদ',link:'/menu/34',iconName:null,icon:IconNames.tajbe},
         {title:'হজ',link:'/menu/17',iconName:null,icon:IconNames.haj},
         {title:'যাকাত',link:'/page/20',iconName:null,icon:IconNames.jakat},
         {title:'আল্লাহর নাম',link:'/page/allah-name',iconName:null,icon:IconNames.allah_name},
