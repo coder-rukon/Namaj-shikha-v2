@@ -21,7 +21,8 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "bangla_namaj_shikkha.com.aonedevs"
+      "package": "bangla_namaj_shikkha.com.aonedevs",
+      "permissions": ["INTERNET"]
     },
     "web": {
       "output": "static",
