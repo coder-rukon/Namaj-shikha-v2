@@ -22,7 +22,7 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "bangla_namaj_shikkha.com.aonedevs",
-      "permissions": ["INTERNET"]
+      "permissions": ["INTERNET","RECEIVE_BOOT_COMPLETED", "VIBRATE", "WAKE_LOCK"]
     },
     "web": {
       "output": "static",

@@ -1,12 +1,64 @@
 import IconBox from '@/components/widget/IconBox';
 import RoundBox from '@/components/widget/RoundBox';
 import { Image } from 'expo-image';
+import * as Notifications from 'expo-notifications';
 import { Link } from 'expo-router';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import RandomHadis from '../../components/hadis/RandomHadis';
 import Clock from '../../components/widget/Clock';
 import IconNames from '../../constants/IconNames';
 const Home = () => {
+    async function scheduleDailyNotifications() {
+        Notifications.setNotificationHandler({
+            handleNotification: async () => ({
+                    shouldPlaySound: false,
+                    shouldSetBadge: false,
+                    shouldShowBanner: true,
+                    shouldShowList: true,
+                }),
+            });
+
+        // MORNING
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: '🌅 Morning Reminder',
+                body: 'Start your day with Namaj 🤲',
+            },
+            trigger: {
+                hour: 12,
+                minute: 15,
+                type: Notifications.SchedulableTriggerInputTypes.DAILY,
+            },
+        });
+
+        // EVENING
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: '🌇 Evening Reminder',
+                body: 'Time for evening Namaj 🕌',
+                
+            },
+            trigger: {
+                hour: 12,
+                minute: 10,
+                type: Notifications.SchedulableTriggerInputTypes.DAILY,
+            },
+        });
+
+        // NIGHT
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: '🌙 Night Reminder',
+                body: 'Don’t forget your Isha prayer 🌙',
+            },
+            trigger: {
+                hour: 12,
+                minute: 12,
+                type: Notifications.SchedulableTriggerInputTypes.DAILY,
+            },
+        });
+    }
+    scheduleDailyNotifications();
     let items = [
         {title:'সূরা',link:'/menu/8',iconName:null,icon:IconNames.quran},
         {title:'দোয়া',link:'/dua',iconName:null,icon:IconNames.dua},
