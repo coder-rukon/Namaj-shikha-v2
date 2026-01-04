@@ -12,21 +12,35 @@ class SoraPlayer extends Component {
             isPlaying:false,
             speedValue:1,
             isLooping:false,
+            isDownloading:false,
+            isFileDonloaded:false,
+            downloadProgress:0,
             playerStatus:{
                 positionMillis:0,
                 durationMillis:0
             }
         }
         this.audioPlayer = null;
-        this.fileHelper = new AudioFileHander(this.props.file);
+        this.fileName = this.props.file;
+        this.fileHelper = new AudioFileHander(this.fileName);
     }
     async componentDidMount(){
-        let fileUri = await this.fileHelper.downloadFile(Helper.fileServerUrl);
-        let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: false }, this.onPlayerReady.bind(this));
-        this.audioPlayer= player.sound;
+        const fileUri = await this.fileHelper.fileUri();
+        if(fileUri){
+            this.readyPlayer(fileUri);
+            this.setState({isFileDonloaded:true});
+        }else{
+            this.setState({isFileDonloaded:false});
+        }
+        
+        //let fileUri = await this.fileHelper.downloadFile(Helper.fileServerUrl);
         if(this.props.onReady){
             this.props.onReady(this);
         }
+    }
+    async readyPlayer(fileUri){
+        let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: false }, this.onPlayerReady.bind(this));
+        this.audioPlayer= player.sound;
     }
     async componentWillUnmount() {
         if (this.audioPlayer) {
@@ -109,10 +123,42 @@ class SoraPlayer extends Component {
             await this.audioPlayer.playAsync();
         }
     }
+    async startDownloadFile(){
+        this.setState({isDownloading:true,downloadProgress:0});
+        const fileUri = await this.fileHelper.startDownloadFile(Helper.fileServerUrl, (prp) => {
+            this.setState({downloadProgress:prp});
+        });
+        this.setState({isDownloading:false,isFileDonloaded:true,downloadProgress:1});
+        await this.readyPlayer(fileUri);
+    }
+    fileDownloadUi(){
+        let isDownloading = this.state.isDownloading;
+        let isFileDonloaded = this.state.isFileDonloaded;
+        let downloadProgress = this.state.downloadProgress;
+        if(isFileDonloaded){
+            return null;
+        }
+        if(isDownloading){
+            return (
+                <View>
+                    <Text>Downloading... {Math.floor(downloadProgress * 100)}%</Text>
+                </View>
+            );
+        }else{
+            return (
+                <View>
+                    <Text style={{color:'blue'}} onPress={this.startDownloadFile.bind(this)}>Download File</Text>
+                </View>
+            );
+        }
+    }
     render() {
         let isPlaying = this.state.isPlaying;
         let speedValue = this.state.speedValue;
         let playerStatus = this.state.playerStatus;
+        if(!this.state.isFileDonloaded){
+            return this.fileDownloadUi();
+        }
         return (
             <View style={style.player}>
                 <Slider
