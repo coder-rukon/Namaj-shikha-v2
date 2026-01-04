@@ -58,7 +58,7 @@ const Home = () => {
             },
         });
     }
-    scheduleDailyNotifications();
+    //scheduleDailyNotifications();
     let items = [
         {title:'সূরা',link:'/menu/8',iconName:null,icon:IconNames.quran},
         {title:'দোয়া',link:'/dua',iconName:null,icon:IconNames.dua},
