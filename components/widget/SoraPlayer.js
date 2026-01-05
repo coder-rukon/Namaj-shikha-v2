@@ -26,6 +26,7 @@ class SoraPlayer extends Component {
     }
     async componentDidMount(){
         const fileUri = await this.fileHelper.fileUri();
+        console.log('file',fileUri);
         if(fileUri){
             this.readyPlayer(fileUri);
             this.setState({isFileDonloaded:true});
