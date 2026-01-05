@@ -1,15 +1,17 @@
 import AppHeader from '@/components/header/AppHeader';
 import { db } from "@/database/db";
 import { Component } from 'react';
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
 import ListItem from '../../../components/widget/ListItem';
+import RoundBox from '../../../components/widget/RoundBox';
 class Index extends Component {
     constructor(props){
         super(props);
         this.state = {
             menuName:'Menu',
+            menu:null,
             menu_id:props.params.slug,
             items:[]
         }
@@ -28,6 +30,7 @@ class Index extends Component {
         //const result = await db.runAsync('INSERT INTO menu (name, items) VALUES (?, ?)', 'aaa', '100');
             const menu = await db.getFirstAsync('SELECT * FROM menu where id = '+menu_id);
             this.setState({
+                menu:menu,
                 menuName:menu?.name,
                 items:menu ? JSON.parse(menu.menu_items) : [],
             })
@@ -35,8 +38,74 @@ class Index extends Component {
             console.log('Error fetching tables:', error);
         }
     }
+    getMenuDetails(details= null){
+        if (!details) {
+        return null;
+        }
+
+        // match <b color="...">text</b> OR <b>text</b>
+        const regex = /<b(?:\s+color="(.*?)")?>(.*?)<\/b>/g;
+
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+
+        while ((match = regex.exec(details)) !== null) {
+            // normal text before <b>
+            if (match.index > lastIndex) {
+                parts.push({
+                text: details.slice(lastIndex, match.index),
+                bold: false
+                });
+            }
+
+            // bold text
+            parts.push({
+                text: match[2],
+                bold: true,
+                color: match[1] || null
+            });
+
+            lastIndex = regex.lastIndex;
+        }
+
+        // remaining text
+        if (lastIndex < details.length) {
+        parts.push({
+            text: details.slice(lastIndex),
+            bold: false
+        });
+        }
+
+        return (
+        <RoundBox
+            style={{
+            marginBottom: 2,
+            borderRadius: 4,
+            backgroundColor: "#e5faf7ff"
+            }}
+            hideFooter={true}
+        >
+            <Text style={style.menuDetails}>
+            {parts.map((part, i) => (
+                <Text
+                key={i}
+                style={{
+                    fontWeight: part.bold ? "bold" : "normal",
+                    color: part.color || "#000"
+                }}
+                >
+                {part.text}
+                </Text>
+            ))}
+            </Text>
+        </RoundBox>
+        );
+
+    }
     render() {
         let items = this.state.items;
+        let menuDetails = this.state.menu && this.state.menu.details ? this.state.menu.details : null;
         return (
             <SafeAreaView style={{ flex: 1 }} edges={['bottom', 'left', 'right']}>
             <ImageBackground
@@ -45,6 +114,7 @@ class Index extends Component {
                 source={require('@/assets/images/bg-primary.jpg')}
             >
                 <AppHeader title={this.state.menuName}/>
+                {this.getMenuDetails(menuDetails)}
                 <ScrollView >
                     <View style={style.list}>
                         {
@@ -73,6 +143,11 @@ export default WithNavigation(Index);
 const style = StyleSheet.create({
     background:{
         flex:1,
+        
+    },
+    menuDetails:{
+        color:'#000',
+        fontSize:18
     },
     list:{
         margin:10

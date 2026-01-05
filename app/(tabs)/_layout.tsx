@@ -54,11 +54,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="ramadan"
         options={{
           title: 'রমাদান',
           tabBarButton: (props) => (
-            <FooterMenuItem {...props} title='রমাদান' link="/explore" icon="weather-sunny"/>
+            <FooterMenuItem {...props} title='রমাদান' link="/ramadan" icon="weather-sunny"/>
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Data',
+          tabBarButton: (props) => (
+            <FooterMenuItem {...props} title='Data' link="/explore" icon="database-arrow-down"/>
           )
         }}
       />
