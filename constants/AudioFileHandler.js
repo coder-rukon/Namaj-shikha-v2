@@ -59,21 +59,48 @@ class AudioFileHandler {
     return file.uri;
   }
   async startDownloadFile(serverUrl, setProgress = null){
-      const fileUri = this.folder + this.fileName;
-      // Use downloadResumable from legacy if you want progress
-      const downloadResumable = FileSystem.createDownloadResumable(
-          serverUrl + this.fileName,
-          fileUri,
-        {},
-        ({ totalBytesWritten, totalBytesExpectedToWrite }) => {
-            if (totalBytesExpectedToWrite > 0 && setProgress) {
-                setProgress(totalBytesWritten / totalBytesExpectedToWrite);
-            }
+        const fileUri = this.folder + this.fileName;
+        // Use downloadResumable from legacy if you want progress
+        const downloadResumable = FileSystem.createDownloadResumable(
+            serverUrl + this.fileName,
+            fileUri,
+          {},
+          ({ totalBytesWritten, totalBytesExpectedToWrite }) => {
+              if (totalBytesExpectedToWrite > 0 && setProgress) {
+                  setProgress(totalBytesWritten / totalBytesExpectedToWrite);
+              }
+          }
+        );
+        const result = await downloadResumable.downloadAsync();
+        return result.uri;
+    }
+    async isLocalMp3 (fileUri) {
+      try {
+        // Read only first few bytes
+        const base64 = await FileSystem.readAsStringAsync(fileUri, {
+          encoding: FileSystem.EncodingType.Base64,
+          length: 16,
+        });
+
+        // Decode base64 → binary
+        const binary = global.atob(base64);
+
+        // Check for ID3 tag
+        if (binary.startsWith('ID3')) {
+          return true;
         }
-      );
-      const result = await downloadResumable.downloadAsync();
-      return result.uri;
-  }
+
+        // Check raw MP3 frame (0xFF)
+        if (binary.charCodeAt(0) === 0xff) {
+          return true;
+        }
+
+        return false;
+      } catch (error) {
+        console.log('MP3 check failed:', error);
+        return false;
+      }
+  };
 }
 
 export default AudioFileHandler;

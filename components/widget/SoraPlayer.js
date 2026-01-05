@@ -26,7 +26,6 @@ class SoraPlayer extends Component {
     }
     async componentDidMount(){
         const fileUri = await this.fileHelper.fileUri();
-        console.log('file',fileUri);
         if(fileUri){
             this.readyPlayer(fileUri);
             this.setState({isFileDonloaded:true});
@@ -39,14 +38,25 @@ class SoraPlayer extends Component {
             this.props.onReady(this);
         }
     }
-    async readyPlayer(fileUri){
-        let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: false }, this.onPlayerReady.bind(this));
-        this.audioPlayer= player.sound;
+    async readyPlayer(fileUri,shouldPlay = false){
+        let isMp3File = this.fileHelper.isLocalMp3(fileUri);
+        if(isMp3File){
+            let player = await Audio.Sound.createAsync({ uri: fileUri }, { shouldPlay: shouldPlay }, this.onPlayerReady.bind(this));
+            this.audioPlayer= player.sound;
+            if(shouldPlay){
+                this.setState({
+                    isPlaying:true
+                })
+            }
+        }else{
+            alert("File can't play");
+        }
+        
     }
     async componentWillUnmount() {
         if (this.audioPlayer) {
-        await this.audioPlayer.stopAsync();
-        await this.audioPlayer.unloadAsync();
+            await this.audioPlayer.stopAsync();
+            await this.audioPlayer.unloadAsync();
             this.audioPlayer = null;
         }
     }
@@ -59,8 +69,16 @@ class SoraPlayer extends Component {
             playerStatus:status
         })
     }
-    playPausePlayer(e){
+    async playPausePlayer(e){
+        if(this.state.isDownloading){
+            return;
+        }
+        if(!this.state.isFileDonloaded ){
+            await this.startDownloadFile(true);
+        }
+        
         let isPlaying = this.state.isPlaying;
+
         this.setState({
             isPlaying:!this.state.isPlaying
         })
@@ -83,28 +101,29 @@ class SoraPlayer extends Component {
     async onSpeedClick(type){
         let speedValue = this.state.speedValue;
         if(type =='plus'){
-            speedValue++;
+            if(speedValue>=1){
+                speedValue++;
+            }else{
+                speedValue = speedValue + 0.2;
+            }
             if(speedValue >=5){
                 speedValue = 4;
             }
             if(speedValue ==0){
                 speedValue = 1;
             }
-        }else{
-            if(speedValue <=1){
-                speedValue = speedValue + 0.2;
-            }else{
-                speedValue--;
-            }
             
-            if(speedValue<= -5){
-                speedValue = -5;
+        }else{
+            if(speedValue >=2){
+                speedValue--;
+            }else{
+                speedValue = speedValue - 0.2;
             }
-            if(speedValue ==0){
-                speedValue = -1;
+            if(speedValue <= 0){
+                speedValue = 0.2;
             }
         }
-        
+        speedValue =  Number(speedValue.toFixed(2));
         this.setState({
             speedValue:speedValue
         })
@@ -119,49 +138,46 @@ class SoraPlayer extends Component {
         await this.setAudioPlayerTime(sliderValue);
     }
     async setAudioPlayerTime(time){
+        if(this.state.isDownloading){
+            return;
+        }
+        if(!this.state.isFileDonloaded ){
+            await this.startDownloadFile(true);
+        }
         if(this.audioPlayer){
             await this.audioPlayer.setPositionAsync(time);
             await this.audioPlayer.playAsync();
         }
     }
-    async startDownloadFile(){
+    async startDownloadFile(shouldPlay = false){
         this.setState({isDownloading:true,downloadProgress:0});
         const fileUri = await this.fileHelper.startDownloadFile(Helper.fileServerUrl, (prp) => {
             this.setState({downloadProgress:prp});
         });
         this.setState({isDownloading:false,isFileDonloaded:true,downloadProgress:1});
-        await this.readyPlayer(fileUri);
+        await this.readyPlayer(fileUri,shouldPlay);
     }
     fileDownloadUi(){
-        let isDownloading = this.state.isDownloading;
         let isFileDonloaded = this.state.isFileDonloaded;
-        let downloadProgress = this.state.downloadProgress;
+        let downloadProgress = Math.floor(this.state.downloadProgress * 100) ;
         if(isFileDonloaded){
             return null;
         }
-        if(isDownloading){
-            return (
-                <View>
-                    <Text>Downloading... {Math.floor(downloadProgress * 100)}%</Text>
-                </View>
-            );
-        }else{
-            return (
-                <View>
-                    <Text style={{color:'blue'}} onPress={this.startDownloadFile.bind(this)}>Download File</Text>
-                </View>
-            );
-        }
+        return (
+            <View style={style.downloadWraper}>
+                <View style={{...style.dlStatus,width:downloadProgress+'%'}}></View>
+                <Text style={style.dlText}>Downloading... {downloadProgress}%</Text>
+            </View>
+        );
     }
     render() {
         let isPlaying = this.state.isPlaying;
         let speedValue = this.state.speedValue;
         let playerStatus = this.state.playerStatus;
-        if(!this.state.isFileDonloaded){
-            return this.fileDownloadUi();
-        }
+        
         return (
             <View style={style.player}>
+                { this.state.isDownloading ? this.fileDownloadUi() : null }
                 <Slider
                     onSlidingComplete = {this.onSlidingComplete.bind(this)}
                     style={{ width: '100%', height: 40 }}
@@ -196,7 +212,34 @@ const style = StyleSheet.create({
         margin:10,
         padding:10,
         borderRadius:20,
-       
+       position:'relative'
+    },
+    downloadWraper:{
+        textAlign:'center',
+        position:'absolute',
+        top:0,
+        left:0,
+        right:0,
+        bottom:0,
+        backgroundColor:'rgba(0,0,0,.5)',
+        borderRadius:20,
+        zIndex:10,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        overflow:'hidden'
+    },
+    dlStatus:{
+        position:'absolute',
+        top:0,
+        left:0,
+        bottom:0,
+        backgroundColor:'rgba(40, 255, 136, 0.34)',
+    },
+    dlText:{
+        textAlign:'center',
+        color:"#fff",
+        fontSize:20
     },
     playerController:{
         justifyContent:'center',
