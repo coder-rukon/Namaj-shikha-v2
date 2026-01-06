@@ -106,6 +106,7 @@ class Index extends Component {
     render() {
         let items = this.state.items;
         let menuDetails = this.state.menu && this.state.menu.details ? this.state.menu.details : null;
+        let after_details = this.state.menu && this.state.menu.after_menu_details ? this.state.menu.after_menu_details : null;
         return (
             <SafeAreaView style={{ flex: 1 }} edges={['bottom', 'left', 'right']}>
             <ImageBackground
@@ -114,8 +115,9 @@ class Index extends Component {
                 source={require('@/assets/images/bg-primary.jpg')}
             >
                 <AppHeader title={this.state.menuName}/>
-                {this.getMenuDetails(menuDetails)}
                 <ScrollView >
+                    {this.getMenuDetails(menuDetails)}
+                    
                     <View style={style.list}>
                         {
                             items.map( (item,key) => {
@@ -131,6 +133,7 @@ class Index extends Component {
                             })
                         }
                     </View>
+                    {this.getMenuDetails(after_details)}
                 </ScrollView>
             </ImageBackground>
             </SafeAreaView>

@@ -1,7 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 
 // Open database (synchronously)
-let db = SQLite.openDatabaseSync('rsnamajshikkhadb_v50');
+let db = SQLite.openDatabaseSync('rsnamajshikkhadb.db');
 export { db };
 export const deleteDatabase = async () => {
   try {
@@ -18,7 +18,7 @@ export const initDatabase = async () => {
   try {
     await db.execAsync(`
         PRAGMA journal_mode = WAL;
-        CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, admin_name TEXT, details TEXT, icon TEXT, menu_items TEXT NOT NULL );
+        CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, admin_name TEXT, details TEXT, after_menu_details TEXT, icon TEXT, menu_items TEXT NOT NULL );
         CREATE TABLE IF NOT EXISTS app_content (id INTEGER PRIMARY KEY NOT NULL,name TEXT NOT NULL, content_type TEXT, tags TEXT, name_ar TEXT, name_eng TEXT ,  audio_file TEXT ,  data TEXT , desctiption TEXT );
         CREATE TABLE IF NOT EXISTS page (id INTEGER PRIMARY KEY NOT NULL, category INTEGER, name TEXT NOT NULL, contents TEXT, meta TEXT);
         `);
@@ -57,13 +57,14 @@ export const insertAppContentItem =async (content) => {
 }
 export const InsertMenuItem =async (menuItem) => {
   await db.runAsync(
-    `INSERT INTO menu (id, name, admin_name, details, icon, menu_items)
-  VALUES (?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO menu (id, name, admin_name, details, after_menu_details, icon, menu_items)
+  VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [
       menuItem.id,
       menuItem.name,
       menuItem.admin_name,
       menuItem.details,
+      menuItem.after_menu_details,
       menuItem.icon ?? null,
       JSON.stringify(menuItem.menu_items)
     ]
