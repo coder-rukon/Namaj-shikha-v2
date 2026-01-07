@@ -70,6 +70,26 @@ class Index extends Component {
                                 font-size:18px;
                             }
                         </style>
+                        <script>
+                            document.addEventListener('click', function (e) {
+                                const link = e.target.closest('a');
+                                if(link){
+                                    const path = link.getAttribute('href');
+                                    if (path && path.startsWith('/')) {
+                                        e.preventDefault();
+                                        window.ReactNativeWebView.postMessage(
+                                            JSON.stringify({
+                                                type: 'NAVIGATE',
+                                                path: path
+                                            })
+                                        );
+
+                                    }
+                                }
+
+                                
+                            });
+                        </script>
                     </header>
                     <body>
                         <div class="container">
@@ -92,6 +112,15 @@ class Index extends Component {
                             style={style.webview}
                             originWhitelist={['*']}
                             source={{ html: pageContents }}
+                            onMessage={(event) => {
+                                try {
+                                    const data = JSON.parse(event.nativeEvent.data);
+
+                                    if (data.type === 'NAVIGATE' && data.path) {
+                                        this.props.router.push(data.path);
+                                    }
+                                } catch (e) {}
+                            }}
                             />
                 </View>
             </ImageBackground>
