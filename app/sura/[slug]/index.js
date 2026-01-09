@@ -1,26 +1,33 @@
 import AppHeader from '@/components/header/AppHeader';
 import { db } from "@/database/db";
+import * as Font from 'expo-font';
 import { Component } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
 import SoraBox from '../../../components/widget/SoraBox';
 import SoraPlayer from '../../../components/widget/SoraPlayer';
-
+import StyledQuranText from '../../../components/widget/StyledQuranText';
 class Index extends Component {
     constructor(props){
         super(props),
         this.state = {
             sura:{},
+            fontLoaded:false,
             audioCurrentTime:0
         }
         this.audioPlayer = null;
     }
-    componentDidMount() {
+    async componentDidMount() {
         
         this.props.navigation.setOptions({
             headerShown: false, // 👈 Hide header from inside the class
         });
         this.loadSura();
+        await Font.loadAsync({
+            AmiriQuran: require('@/assets/fonts/AmiriQuran-Regular.ttf'),
+        });
+
+        this.setState({ fontLoaded: true });
     }
     async loadSura(){
         let id =this.props.params.slug;
@@ -85,7 +92,21 @@ class Index extends Component {
                             {
                                 suraData.map( (soraWord,key) => {
                                     return(
-                                        <Text key={key} style={{...style.word,direction:'rtl',fontSize:25,lineHeight:35, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.ar} </Text>
+                                        <Text key={key} style={
+                                            {
+                                                ...style.word,
+                                                direction:'rtl',
+                                                fontFamily: 'AmiriQuran',
+                                                textAlign: 'right',
+                                                writingDirection: 'rtl',
+                                                fontSize:25,
+                                                lineHeight:44, 
+                                                ...this.getColor(soraWord) 
+
+                                            }
+                                        } onPress={ e => {this.onWordPress(soraWord)}}>
+                                            <StyledQuranText text={soraWord.ar} />
+                                        </Text>
                                     )
                                 })
                             }
