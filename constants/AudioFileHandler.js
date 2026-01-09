@@ -59,6 +59,7 @@ class AudioFileHandler {
     return file.uri;
   }
   async startDownloadFile(serverUrl, setProgress = null){
+        await this.ensureDir();
         const fileUri = this.folder + this.fileName;
         // Use downloadResumable from legacy if you want progress
         const downloadResumable = FileSystem.createDownloadResumable(

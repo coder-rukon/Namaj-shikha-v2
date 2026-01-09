@@ -7,7 +7,6 @@ import { WithNavigation } from '../../../components/hoc/withNavigation';
 import BorderBox from '../../../components/widget/BorderBox';
 import SoraBox from '../../../components/widget/SoraBox';
 import SoraPlayer from '../../../components/widget/SoraPlayer';
-import StyledQuranText from '../../../components/widget/StyledQuranText';
 class Index extends Component {
     constructor(props){
         super(props),
@@ -25,7 +24,7 @@ class Index extends Component {
         });
         this.loadSura();
         await Font.loadAsync({
-            AmiriQuran: require('@/assets/fonts/AmiriQuran-Regular.ttf'),
+            Amiri: require('@/assets/fonts/Amiri-Regular.ttf')
         });
 
         this.setState({ fontLoaded: true });
@@ -105,16 +104,19 @@ class Index extends Component {
                                                 {
                                                     ...style.word,
                                                     direction:'rtl',
-                                                    fontFamily: 'AmiriQuran',
+                                                    fontFamily: 'Amiri',
                                                     textAlign: 'right',
                                                     writingDirection: 'rtl',
-                                                    fontSize:25,
-                                                    lineHeight:44, 
-                                                    ...this.getColor(soraWord) 
+                                                    letterSpacing:0,
+                                                    textTransform:'none',
+                                                    fontSize:24,
+                                                    lineHeight:48,
+                                                    fontWeight:300,
+                                                    ...this.getColor(soraWord),
     
                                                 }
                                             } onPress={ e => {this.onWordPress(soraWord)}}>
-                                                <StyledQuranText text={soraWord.ar} />
+                                                {soraWord.ar}{` `}
                                             </Text>
                                         )
                                     })

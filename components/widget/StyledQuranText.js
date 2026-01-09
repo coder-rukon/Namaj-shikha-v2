@@ -43,7 +43,7 @@ export default class StyledQuranText extends Component {
       } else if (match[6]) {
         // Waqf symbols
         const waqfColor = WAQF_COLORS[match[6]] || '#000';
-        parts.push({ text: match[6], color: waqfColor, bold: true });
+        parts.push({ isWaqf:true, text: match[6], color: waqfColor, bold: true });
       }
 
       lastIndex = regex.lastIndex;
@@ -72,8 +72,11 @@ export default class StyledQuranText extends Component {
           <Text
             key={index}
             style={{
+              /*
+              backgroundColor:this.props.isPlayingThis ? '#0e7af523' : '#ffffff01',
               color: part.color || style?.color || '#000',
-              fontWeight: part.bold ? 'bold' : 'normal',
+              */
+              color: part.isWaqf ? part.color : (this.props.isPlayingThis ? 'red' : '#000'),
             }}
           >
             {part.text}
