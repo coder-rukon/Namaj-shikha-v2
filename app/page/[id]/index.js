@@ -2,10 +2,10 @@ import AppHeader from '@/components/header/AppHeader';
 import { db } from "@/database/db";
 import { Component } from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
 import BootstrapCss from '../../../constants/Css';
-
 class Index extends Component {
     constructor(props){
         super(props);
@@ -101,29 +101,31 @@ class Index extends Component {
                     </html>`
         }
         return (
-            <ImageBackground
-                style={style.background}
-                resizeMode="cover"
-                source={require('@/assets/images/bg-primary.jpg')}
-            >
-                <AppHeader title={this.state.menuName}/>
-                <View style={style.webviewWraper}>
-                    <WebView
-                            style={style.webview}
-                            originWhitelist={['*']}
-                            source={{ html: pageContents }}
-                            onMessage={(event) => {
-                                try {
-                                    const data = JSON.parse(event.nativeEvent.data);
+            <SafeAreaView style={{ flex: 1 }} edges={['bottom', 'left', 'right']}>
+                <ImageBackground
+                    style={style.background}
+                    resizeMode="cover"
+                    source={require('@/assets/images/bg-primary.jpg')}
+                >
+                    <AppHeader title={this.state.menuName}/>
+                    <View style={style.webviewWraper}>
+                        <WebView
+                                style={style.webview}
+                                originWhitelist={['*']}
+                                source={{ html: pageContents }}
+                                onMessage={(event) => {
+                                    try {
+                                        const data = JSON.parse(event.nativeEvent.data);
 
-                                    if (data.type === 'NAVIGATE' && data.path) {
-                                        this.props.router.push(data.path);
-                                    }
-                                } catch (e) {}
-                            }}
-                            />
-                </View>
-            </ImageBackground>
+                                        if (data.type === 'NAVIGATE' && data.path) {
+                                            this.props.router.push(data.path);
+                                        }
+                                    } catch (e) {}
+                                }}
+                                />
+                    </View>
+                </ImageBackground>
+            </SafeAreaView>
                 
         );
     }

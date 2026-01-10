@@ -30,7 +30,7 @@ export default function AppHeader({ title, containerStyle }: Props) {
             >
             <Ionicons name="arrow-back" size={20} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
         </View>
         <View>
           <Text style={styles.titleRight}>বাংলা নামাজ শিক্ষা</Text>
@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
   },
   leftArea:{
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    maxWidth:'55%',
+    wordWrap:'nowrap'
   },
   backBtn: {
     paddingRight: 12,
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '400',
-    color:'#fff'
+    color:'#fff',
+    maxWidth:200,
   },
   titleRight: {
     fontSize: 16,
