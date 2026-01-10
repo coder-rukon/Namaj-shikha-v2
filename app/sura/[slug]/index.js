@@ -80,6 +80,14 @@ class Index extends Component {
             audioCurrentTime:status?.positionMillis
         })
     }
+    getWaqfo(word){
+        if(word.line_end_sign){
+            return(
+                <Text style={{color:"red", fontSize:'20'}}>{` ${word.line_end_sign} `}</Text>
+            )
+        }
+        return null;
+    }
     render() {
         let sura = this.state.sura;
         let suraData = sura.data ? sura.data : [];
@@ -113,7 +121,7 @@ class Index extends Component {
                                                 ...this.getColor(soraWord),
                                             }
                                         } onPress={ e => {this.onWordPress(soraWord)}}>
-                                            {soraWord.ar}{` `}
+                                            {soraWord.ar}{this.getWaqfo(soraWord)}
                                         </Text>
                                     )
                                 })
