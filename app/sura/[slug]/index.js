@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import { Component } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
+import ArabicWebView from '../../../components/widget/ArabicWebView';
 import SoraBox from '../../../components/widget/SoraBox';
 import SoraPlayer from '../../../components/widget/SoraPlayer';
 class Index extends Component {
@@ -92,6 +93,8 @@ class Index extends Component {
         let sura = this.state.sura;
         let suraData = sura.data ? sura.data : [];
         let audioCurrentTime = this.state.audioCurrentTime;
+        let arabicHtml = '';
+        
         return (
             <ImageBackground
                 style={style.background}
@@ -102,31 +105,10 @@ class Index extends Component {
                 <ScrollView>
                     {sura.audio_file && <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={sura.audio_file}/>}
                     <View style={style.container}>
-                        <SoraBox topTitle="আরবি" titleDirection="rtl" title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ">
-                            {
-                                suraData.map( (soraWord,key) => {
-                                    return(
-                                        <Text key={key} style={
-                                            {
-                                                ...style.word,
-                                                direction:'rtl',
-                                                fontFamily: 'Amiri',
-                                                textAlign: 'right',
-                                                writingDirection: 'rtl',
-                                                letterSpacing:0,
-                                                textTransform:'none',
-                                                fontSize:24,
-                                                lineHeight:48,
-                                                fontWeight:300,
-                                                ...this.getColor(soraWord),
-                                            }
-                                        } onPress={ e => {this.onWordPress(soraWord)}}>
-                                            {soraWord.ar}{this.getWaqfo(soraWord)}
-                                        </Text>
-                                    )
-                                })
-                            }
+                        <SoraBox topTitle="আরবি" titleDirection="rtl" viewContainer={true} title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ">
+                            <ArabicWebView data={suraData} color={this.getColor.bind(this)}/>
                         </SoraBox>
+                        
                         <SoraBox topTitle="উচ্চারন" title="বিসমিল্লাহির রাহমানির রাহিম">
                             {
                                 suraData.map( (soraWord,key) => {
