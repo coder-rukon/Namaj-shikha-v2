@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import { Component } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { WithNavigation } from '../../../components/hoc/withNavigation';
+import ArabicWebView from '../../../components/widget/ArabicWebView';
 import BorderBox from '../../../components/widget/BorderBox';
 import SoraBox from '../../../components/widget/SoraBox';
 import SoraPlayer from '../../../components/widget/SoraPlayer';
@@ -12,8 +13,8 @@ class Index extends Component {
         super(props),
         this.state = {
             sura:{},
-            audioCurrentTime:0,
-            fontLoaded:false
+            fontLoaded:false,
+            audioCurrentTime:0
         }
         this.audioPlayer = null;
     }
@@ -46,7 +47,7 @@ class Index extends Component {
         }
     }
     onWordPress(word) {
-        let startTime = word.time_start;
+        let startTime = parseFloat(word.time_start);
 
         this.setState({
             audioCurrentTime: startTime
@@ -62,22 +63,38 @@ class Index extends Component {
     getColor(word){
         let currentTime = this.state.audioCurrentTime;
         let output = {
-            color:"#000"
+            color:"black"
         }
         if( currentTime >word.time_start && currentTime < word.time_end){
             output.color = "red";
         }
         return output;
     }
+    isPlayingCurrentAyat(word){
+        let currentTime = this.state.audioCurrentTime;
+        if( currentTime >word.time_start && currentTime < word.time_end){
+            return true;
+        }
+        return false;
+    }
     onAudioChange(status){
         this.setState({
             audioCurrentTime:status?.positionMillis
         })
     }
+    getWaqfo(word){
+        if(word.line_end_sign){
+            return(
+                <Text style={{color:"red", fontSize:'20'}}>{` ${word.line_end_sign} `}</Text>
+            )
+        }
+        return null;
+    }
     render() {
         let sura = this.state.sura;
         let suraData = sura.data ? sura.data : [];
         let audioCurrentTime = this.state.audioCurrentTime;
+        let arabicHtml = '';
         let isArabicExist = false;
         suraData.forEach( word => {
             if(word.ar && word.ar.length >0){
@@ -95,36 +112,14 @@ class Index extends Component {
                     {sura.audio_file && <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={sura.audio_file}/>}
                     <View style={style.container}>
                         <BorderBox title={sura.name} >
-                            { isArabicExist  ? 
-                            <SoraBox topTitle="আরবি" titleDirection="rtl" contentStyle={{padding:0, backgroundColor:'transparent'}} >
-                                {
-                                    suraData.map( (soraWord,key) => {
-                                        return(
-                                            <Text key={key} style={
-                                                {
-                                                    ...style.word,
-                                                    direction:'rtl',
-                                                    fontFamily: 'Amiri',
-                                                    textAlign: 'right',
-                                                    writingDirection: 'rtl',
-                                                    letterSpacing:0,
-                                                    textTransform:'none',
-                                                    fontSize:24,
-                                                    lineHeight:48,
-                                                    fontWeight:300,
-                                                    ...this.getColor(soraWord),
-    
-                                                }
-                                            } onPress={ e => {this.onWordPress(soraWord)}}>
-                                                {soraWord.ar}{` `}
-                                            </Text>
-                                        )
-                                    })
-                                }
-                            </SoraBox>
-                            : null
+                            {isArabicExist ? 
+                                <SoraBox topTitle="আরবি" titleDirection="rtl" viewContainer={true} title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"> 
+                                    <ArabicWebView onLineClick={this.onWordPress.bind(this)} data={suraData} color={this.getColor.bind(this)}/>
+                                </SoraBox> 
+                                : null 
                             }
-                            <SoraBox topTitle="উচ্চারন" contentStyle={{padding:0, backgroundColor:'transparent'}}>
+                            
+                            <SoraBox topTitle="উচ্চারন" title="বিসমিল্লাহির রাহমানির রাহিম">
                                 {
                                     suraData.map( (soraWord,key) => {
                                         return(
@@ -133,7 +128,7 @@ class Index extends Component {
                                     })
                                 }
                             </SoraBox>
-                            <SoraBox topTitle="অর্থ" contentStyle={{padding:0, backgroundColor:'transparent'}}>
+                            <SoraBox topTitle="অর্থ" title="পরম করুণাময় এবং দয়ালু আল্লাহর নামে শুরু করছি।">
                                 {
                                     suraData.map( (soraWord,key) => {
                                         return(
@@ -142,9 +137,6 @@ class Index extends Component {
                                     })
                                 }
                             </SoraBox>
-                        
-                            <Text  style={style.details}>{sura.desctiption} </Text>
-                            
                         </BorderBox>
                     </View>
                 </ScrollView>
@@ -160,18 +152,12 @@ const style = StyleSheet.create({
         flex:1,
     },
     container:{
-        padding:10,
+        padding:5,
         paddingBottom:50
     },
     word:{
         fontSize:16,
         color:'#000',
-        lineHeight: 24
-    },
-    details:{
-        fontSize:16,
-        color:'#000',
-        marginBottom:10,
-        marginTop:20,
+        lineHeight: 24,
     }
 })

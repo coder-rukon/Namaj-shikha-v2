@@ -46,7 +46,7 @@ class Index extends Component {
         }
     }
     onWordPress(word) {
-        let startTime = word.time_start;
+        let startTime = parseFloat(word.time_start);
 
         this.setState({
             audioCurrentTime: startTime
@@ -62,7 +62,7 @@ class Index extends Component {
     getColor(word){
         let currentTime = this.state.audioCurrentTime;
         let output = {
-            color:"#000"
+            color:"black"
         }
         if( currentTime >word.time_start && currentTime < word.time_end){
             output.color = "red";
@@ -94,7 +94,12 @@ class Index extends Component {
         let suraData = sura.data ? sura.data : [];
         let audioCurrentTime = this.state.audioCurrentTime;
         let arabicHtml = '';
-        
+        let isArabicExist = false;
+        suraData.forEach( word => {
+            if(word.ar && word.ar.length >0){
+                isArabicExist = true;
+            }
+        });
         return (
             <ImageBackground
                 style={style.background}
@@ -105,28 +110,31 @@ class Index extends Component {
                 <ScrollView>
                     {sura.audio_file && <SoraPlayer onReady={ audioObj => { this.audioPlayer = audioObj }} onTimeChange={this.onAudioChange.bind(this)} file={sura.audio_file}/>}
                     <View style={style.container}>
-                        <SoraBox topTitle="আরবি" titleDirection="rtl" viewContainer={true} title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ">
-                            <ArabicWebView data={suraData} color={this.getColor.bind(this)}/>
-                        </SoraBox>
-                        
-                        <SoraBox topTitle="উচ্চারন" title="বিসমিল্লাহির রাহমানির রাহিম">
-                            {
-                                suraData.map( (soraWord,key) => {
-                                    return(
-                                        <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.bn} </Text>
-                                    )
-                                })
+                            {isArabicExist ? 
+                                <SoraBox topTitle="আরবি" titleDirection="rtl" viewContainer={true} title="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"> 
+                                    <ArabicWebView onLineClick={this.onWordPress.bind(this)} data={suraData} color={this.getColor.bind(this)}/>
+                                </SoraBox> 
+                                : null 
                             }
-                        </SoraBox>
-                        <SoraBox topTitle="অর্থ" title="পরম করুণাময় এবং দয়ালু আল্লাহর নামে শুরু করছি।">
-                            {
-                                suraData.map( (soraWord,key) => {
-                                    return(
-                                        <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.meaning} </Text>
-                                    )
-                                })
-                            }
-                        </SoraBox>
+                            
+                            <SoraBox topTitle="উচ্চারন" title="বিসমিল্লাহির রাহমানির রাহিম">
+                                {
+                                    suraData.map( (soraWord,key) => {
+                                        return(
+                                            <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.bn} </Text>
+                                        )
+                                    })
+                                }
+                            </SoraBox>
+                            <SoraBox topTitle="অর্থ" title="পরম করুণাময় এবং দয়ালু আল্লাহর নামে শুরু করছি।">
+                                {
+                                    suraData.map( (soraWord,key) => {
+                                        return(
+                                            <Text key={key} style={{...style.word, ...this.getColor(soraWord) }} onPress={ e => {this.onWordPress(soraWord)}}>{soraWord.meaning} </Text>
+                                        )
+                                    })
+                                }
+                            </SoraBox>
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -141,7 +149,7 @@ const style = StyleSheet.create({
         flex:1,
     },
     container:{
-        padding:20,
+        padding:5,
         paddingBottom:50
     },
     word:{
